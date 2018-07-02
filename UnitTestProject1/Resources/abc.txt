@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Drawing;
+using System.Threading;
+using WinForms = System.Windows.Forms;
+
+using Ranorex;
+using Ranorex.Core;
+using Ranorex.Core.Testing;
+
+namespace MyTestProject
+{
+    [UserCodeCollection]
+    [TestModule("0dbd933e-24cd-4103-9033-b0bc34c4ccf7", ModuleType.Recording, 1)]
+    public partial class FeatureX_10 : ITestModule
+    {
+        public static NewRepository_V20170822 repo = NewRepository_V20170822.Instance;
+
+        void ITestModule.Run()
+        {
+            Mouse.DefaultMoveTime = 300;
+            Keyboard.DefaultKeyPressTime = 100;
+            Delay.SpeedFactor = 1.00;
+//[Procedure] First Button: Click
+repo.MainForm.Button1.Click();
+
+
+
+//[Procedure] Combobox One: Click 'Option 2'
+repo.MainForm.ComboBox1.SelectedItemText = "Option 2";
+//[Procedure] Text Box One: 'abc'
+repo.MainForm.Text.TextValue = "abc";
+//[Procedure] Rich Text Box One: 'abc'
+repo.MainForm.TEXTBOX.TextValue = "abc";
+
+
+
+
+
+
+
+        }
+    }
+}

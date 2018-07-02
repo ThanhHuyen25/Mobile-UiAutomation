@@ -1,0 +1,440 @@
+﻿<Window x:Class="TestingApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:System;assembly=mscorlib"
+        xmlns:cmd="clr-namespace:System.Windows.Input;assembly=PresentationCore"          
+        xmlns:cmdCustom="clr-namespace:TestingApplication"
+        xmlns:self="clr-namespace:TestingApplication"
+        WindowState="Maximized"                 
+        Title="MainWindow" Height="600" Width="1000" 
+        Background="{StaticResource common_background}" 
+        Icon="Resources/application-form-icon.png" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <my:Double x:Key="font_size">14</my:Double>
+        <my:Double x:Key="title_font_size">18</my:Double>
+        <my:Double x:Key="item_height">40</my:Double>
+        <SolidColorBrush x:Key="folder_bg_color" Color="#f1f1f1"></SolidColorBrush>
+        <SolidColorBrush x:Key="module_bg_color" Color="#e6f9ff"></SolidColorBrush>
+        <Thickness x:Key="my_margin">0</Thickness>
+        <Thickness x:Key="title_margin">0</Thickness>
+        <Thickness x:Key="icon_margin">8</Thickness>
+        <Thickness x:Key="row_margin">8</Thickness>
+        <Thickness x:Key="left_margin">5,0,0,0</Thickness>
+        <my:Double x:Key="rect_width">4</my:Double>
+
+        <Style TargetType="TreeViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition MinWidth="0" Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Background="Transparent"></StackPanel>
+                            <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Style>
+                                    <Style TargetType="{x:Type ToggleButton}">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                    <Border Background="{TemplateBinding Background}" BorderThickness="0">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ToggleButton.Style>
+                                <Image Name="arrow_icon" Height="20" Width="20" Source="Resources/arrow_forward.png"></Image>
+                            </ToggleButton>
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="2" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter x:Name="PART_Header" ContentSource="Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="false">
+                                <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+                                <Setter Property="Source" TargetName="arrow_icon" Value="Resources/arrow_forward.png"/>
+                            </Trigger>
+                            <Trigger Property="IsExpanded" Value="true">
+                                <Setter Property="Source" TargetName="arrow_icon" Value="Resources/arrow_down.png"/>
+                            </Trigger>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                                <!--<Setter Property="Height" TargetName="arrow_icon" Value="0"/>
+                        <Setter Property="Width" TargetName="arrow_icon" Value="0"/>-->
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Background" TargetName="Bd" Value="#FF9AD2F1"/>
+                                <!--{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>-->
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="IsSelectionActive" Value="false"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <EventSetter Event="Selected" 
+                 Handler="TreeViewSelectedItemChanged"/>
+            <Setter Property="IsExpanded"
+                        Value="{Binding IsExpanded, Mode=TwoWay}" />
+            <Setter Property="IsSelected"
+                        Value="{Binding IsSelected, Mode=TwoWay}" />
+            <Setter Property="FontWeight"
+                        Value="Normal" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <cmd:KeyBinding x:Uid="cmd:KeyBinding_1" Command="cmdCustom:MainWindow.NewInspectCommand" Gesture="Ctrl+N" />
+        <cmd:KeyBinding x:Uid="cmd:KeyBinding_2" Command="cmdCustom:MainWindow.SaveCommand" Gesture="Ctrl+S" />
+        <cmd:KeyBinding x:Uid="cmd:KeyBinding_3" Command="cmdCustom:MainWindow.ExportCodeCommand" Gesture="Ctrl+E" />
+        <cmd:KeyBinding x:Uid="cmd:KeyBinding_4" Command="cmdCustom:MainWindow.CloseCommand" Gesture="Ctrl+W" />
+        <cmd:KeyBinding x:Uid="cmd:KeyBinding_5" Command="cmdCustom:MainWindow.OpenAppSelection" Gesture="Ctrl+I" />
+    </Window.InputBindings>
+
+    <Window.CommandBindings>
+        <CommandBinding x:Uid="cmd:CommandBinding_1" Command="cmdCustom:MainWindow.NewInspectCommand" Executed="DoInspectCommand" />
+        <CommandBinding x:Uid="cmd:CommandBinding_2" Command="cmdCustom:MainWindow.SaveCommand" Executed="DoSaveCommand" />
+        <CommandBinding x:Uid="cmd:CommandBinding_3" Command="cmdCustom:MainWindow.ExportCodeCommand" Executed="DoExportCodeCommand" />
+        <CommandBinding x:Uid="cmd:CommandBinding_4" Command="cmdCustom:MainWindow.CloseCommand" Executed="DoCloseCommand" />
+        <CommandBinding x:Uid="cmd:CommandBinding_5" Command="cmdCustom:MainWindow.OpenAppSelection" Executed="DoOpenAppSelection" />
+    </Window.CommandBindings>
+
+    <Grid x:Name="main_grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="32"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition x:Name="grid_row_definition_scenarios" Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" DockPanel.Dock="Top" Background="{StaticResource common_background}" FontSize="13" BorderThickness="0,0,0,4">
+            <MenuItem Style="{StaticResource menuitem_hover_style}" Header="_File">
+                <MenuItem x:Name="menuItemOpen" Margin="0" Padding="0" Header="{StaticResource str_new_inspection}" 
+                      Style="{StaticResource menuitem_hover_style}" Click="NewInspection_Click" InputGestureText="Ctrl+N">
+                    <!--Height="{StaticResource menu_item_height}"-->
+                    <MenuItem.Icon>
+                        <Image Margin="0" Source="Resources/icons/VSO_NewFile_40x.png"></Image>
+                        <!--</Image> Width="{StaticResource menu_item_icon_width}" Height="{StaticResource menu_item_icon_height}"/>-->
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="menuItemSave" Margin="0" Padding="0" Header="{StaticResource str_save}" 
+                      Style="{StaticResource menuitem_hover_style}" Click="Save_Click" IsEnabled="False" InputGestureText="Ctrl+S">
+                    <!--Height="{StaticResource menu_item_height}"-->
+                    <MenuItem.Icon>
+                        <Image Margin="0" Source="Resources/icons/Save_Disable_40x.png"></Image>
+                        <!--</Image> Width="{StaticResource menu_item_icon_width}" Height="{StaticResource menu_item_icon_height}"/>-->
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="menuItemClose" Margin="0" Padding="0" Header="{StaticResource str_close}"
+                      Style="{StaticResource menuitem_hover_style}" Click="Close_Click" IsEnabled="False" InputGestureText="Ctrl+W">
+                    <!--Height="{StaticResource menu_item_height}"-->
+                    <MenuItem.Icon>
+                        <Image Margin="0" Source="Resources/icons/CloseDocument_Disable_32x.png"></Image>
+                        <!--</Image> Stretch="Uniform" Width="{StaticResource menu_item_icon_width}" Height="{StaticResource menu_item_icon_height}"/>-->
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="menuItemExportCodes" Margin="0" Padding="0" Header="{StaticResource str_export_codes}" 
+                      Style="{StaticResource menuitem_hover_style}" Click="ExportProject_Click" IsEnabled="False" InputGestureText="Ctrl+E">
+                    <!--Height="{StaticResource menu_item_height}"-->
+                    <MenuItem.Icon>
+                        <Image Margin="0" Source="Resources/icons/Export_Disable_30x.png"></Image>
+                        <!--</Image> Stretch="Uniform" Width="{StaticResource menu_item_icon_width}" Height="{StaticResource menu_item_icon_height}"/>-->
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="menuItemImportSpec" Margin="0" Padding="0" Header="{StaticResource str_import_spec_file}" 
+                      Style="{StaticResource menuitem_hover_style}" Click="ImportSpecFile_Click" IsEnabled="False" InputGestureText="Ctrl+I">
+                    <MenuItem.Icon>
+                        <Image Margin="0" Source="Resources/icons/Import_Disable_16x.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="menuItemImportRanorexRepo" Margin="0" Padding="0" Header="{StaticResource str_import_ranorex_repo}" 
+                      Style="{StaticResource menuitem_hover_style}" Click="ImportRanorexRepoFile_Click" IsEnabled="True">
+                    <MenuItem.Icon>
+                        <Image Margin="0" Source="Resources/icons/Import_16x.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_View">
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem x:Name="menuItemOption" Margin="0" Padding="0" Header="Options" 
+                      Style="{StaticResource menuitem_hover_style}" Click="Options_Click">
+                    <MenuItem.Icon>
+                        <Image Margin="0" Source="Resources/icons/Settings_16x.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem x:Name="help_about" Header="About"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ToolBar Grid.Row="1" Name="MyToolbar" HorizontalAlignment="Left" Background="#FFC7D9DE"
+               BorderThickness="0,1" BorderBrush="#FFF9F9F9">
+            <Button x:Name="btnOpenNewApp" Template="{StaticResource button_menu_style}" 
+                 ToolTip="{StaticResource str_new_inspection}" Click="NewInspection_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgOpenNewApp" Margin="3,0,5,0" Source="Resources/icons/VSO_NewFile_40x.png"></Image>
+                    <TextBlock VerticalAlignment="Center" FontSize="13" Margin="0,1,5,0">Inspect</TextBlock>
+                </StackPanel>
+            </Button>
+            <Border Width="4" />
+            <Button x:Name="btnInstanceInspect" Template="{StaticResource button_menu_style}" 
+                 ToolTip="{StaticResource str_inspecting}" Click="btnInstanceInspect_Click" 
+                 BorderThickness="0" IsEnabled="True">
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgInspecting" Margin="3,3,5,0" Source="Resources/icons/application-search-icon.png"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="13" Margin="0,1,5,0">Inspect Instance</TextBlock>
+                </StackPanel>
+            </Button>
+            <Separator Style="{StaticResource separator_style}"/>
+            <Button x:Name="btnSave" Template="{StaticResource button_menu_style}" ToolTip="{StaticResource str_save}" 
+                 Click="Save_Click" BorderThickness="0" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgSave" Margin="3,0,5,0" Source="Resources/icons/Save_Disable_40x.png"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="13" Margin="0,1,5,0">Save</TextBlock>
+                </StackPanel>
+            </Button>
+            <Border Width="4" />
+            <Button x:Name="btnClose" Template="{StaticResource button_menu_style}" ToolTip="{StaticResource str_close}"
+                 Click="Close_Click" BorderThickness="0" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgClose" Margin="3,1,5,2" Source="Resources/icons/CloseDocument_Disable_32x.png"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="13" Margin="0,1,5,0">Close</TextBlock>
+                </StackPanel>
+            </Button>
+            <Separator Style="{StaticResource separator_style}"/>
+            <Button x:Name="btnImportCode" Template="{StaticResource button_menu_style}" ToolTip="{StaticResource str_import_spec_file}" 
+                 Click="ImportSpecFile_Click" BorderThickness="0" IsEnabled="False" VerticalAlignment="Bottom">
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgImportCode" Margin="3,6,5,0" Source="Resources/icons/Import_Disable_16x.png"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="13" Margin="0,1,5,0">Import specification</TextBlock>
+                </StackPanel>
+            </Button>
+            <Border Width="4" />
+            <Button x:Name="btnExportCode" Template="{StaticResource button_menu_style}" ToolTip="{StaticResource str_export_codes}"
+                 Click="ExportProject_Click" BorderThickness="0" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgExportCode" Margin="3,2,5,2" Source="Resources/icons/Export_Disable_30x.png"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="13" Margin="0,1,5,0">Export project</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="btnExportSpec" Template="{StaticResource button_menu_style}" ToolTip="{StaticResource str_export_codes}"
+                 Click="ExportSpec_Click" BorderThickness="0" IsEnabled="False">
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgExportSpec" Margin="3,2,5,2" Source="Resources/icons/Export_Disable_30x.png"/>
+                    <TextBlock VerticalAlignment="Center" FontSize="13" Margin="0,1,5,0">Export spec</TextBlock>
+                </StackPanel>
+            </Button>
+        </ToolBar>
+        <Border Grid.Row="2" BorderBrush="{StaticResource splitter_color}" BorderThickness="0,3,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" x:Name="ColDef1" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" x:Name="ColDef2" />
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="elements_view_panel" Visibility="Visible" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0"  Background="White">
+                        <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource line_color}">
+                            <TextBlock FontSize="15" HorizontalAlignment="Center">Elements view</TextBlock>
+                        </Border>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <TreeView x:Name="elementsTreeView" HorizontalContentAlignment="Stretch"
+                         HorizontalAlignment="Stretch" BorderThickness="0" ScrollViewer.CanContentScroll="True" 
+                         SelectedItemChanged="ElementsTreeView_SelectedItemChanged">
+                            <TreeView.Resources>
+                                <HierarchicalDataTemplate DataType="{x:Type self:ElementItemVisual}" ItemsSource="{Binding Path=Children}">
+                                    <Border Height="24" Background="Transparent" BorderThickness="0">
+                                        <DockPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                            <DockPanel.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Header="Expand" Click="TreeViewItem_Expand_Click"/>
+                                                    <MenuItem Header="Collapse" Click="TreeViewItem_Collapse_Click"/>
+                                                    <MenuItem Header="Remove" Click="TreeViewItem_Remove_Click"/>
+                                                    <MenuItem Header="Expand All" Click="TreeViewItem_ExpandAll_Click"/>
+                                                    <MenuItem Header="Collapse All" Click="TreeViewItem_CollapseAll_Click"/>
+                                                    <MenuItem Header="Add to Export" Click="TreeViewItem_Add2Export_Click"/>
+                                                    <MenuItem Header="Add All to Export" Click="TreeViewItem_AddAll2Export_Click"/>
+                                                    <MenuItem Header="Remove All to Export" Click="TreeViewItem_RemoveAll2Export_Click"/>
+                                                </ContextMenu>
+                                            </DockPanel.ContextMenu>
+                                            <Image Margin="2" Source="{Binding Path=ImageUrl}" Height="{StaticResource treeview_item_icon_size}" 
+                                        Width="{StaticResource treeview_item_icon_size}"></Image>
+                                            <TextBlock Margin="2" Text="{Binding Path=Name}"></TextBlock>
+                                            <CheckBox DockPanel.Dock="Right" HorizontalAlignment="Right" 
+                                           IsChecked="{Binding IsExportToSpec, Mode=TwoWay}"
+                                           Margin="0,2,5,0"></CheckBox>
+                                        </DockPanel>
+                                    </Border>
+                                </HierarchicalDataTemplate>
+                            </TreeView.Resources>
+                        </TreeView>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="output_panel" Visibility="Hidden" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="15" Background="White" Grid.Row="0">Output</TextBlock>
+                    <TextBox TextWrapping="Wrap" IsReadOnly="true" BorderThickness="0" Grid.Row="1" x:Name="output_text"></TextBox>
+                </Grid>
+                <GridSplitter x:Name="spliter1" Grid.Column="1" Width="{StaticResource spliter_thickness}" HorizontalAlignment="Stretch" 
+                          Background="{StaticResource splitter_color}" DragCompleted="spliter1_DragCompleted"/>
+                <Grid x:Name="grid_right" Grid.Column="2" Height="auto" VerticalAlignment="Stretch">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.5*"></RowDefinition>
+                            <RowDefinition Height="5"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Background="White">
+                            <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource line_color}">
+                                <TextBlock FontSize="15" HorizontalAlignment="Center">Element screenshot</TextBlock>
+                            </Border>
+                            <Image x:Name="imgCapture" HorizontalAlignment="Left" Margin="27,13,0,0" VerticalAlignment="Top" Stretch="None"/>
+                        </StackPanel>
+                        <TextBlock x:Name="noImage" Text="" Foreground="Red" FontSize="30" VerticalAlignment="Center"
+                             HorizontalAlignment="Center"></TextBlock>
+                        <GridSplitter Grid.Row="1" Height="{StaticResource spliter_thickness}" 
+                                Background="{StaticResource splitter_color}" HorizontalAlignment="Stretch" />
+
+                        <!--added by @Nguyen-->
+                        <!--edited by @duongtd 05/11-->
+                        <Grid Background="White" Grid.Row="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Content="Element details" HorizontalContentAlignment="Center" 
+                            FontSize="15" BorderThickness="0,0,0,1" BorderBrush="{StaticResource line_color}"/>
+                            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                <Grid Margin="15,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <!--<ColumnDefinition Width="15"></ColumnDefinition>-->
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <Label Name="tb_key_Id" Content="Id" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_DesignedId" Content="DesignedId" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_DesignedName" Content="DesignedName" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ElementType" Content="DesignedType" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Parent" Content="Parent"></Label>
+                                        <Label Name="tb_key_Children" Content="Children" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ElementPath" Content="ElementPath" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ImageCaptureEncoded" Content="ImageCaptureEncoded" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_AcceleratorKey" Content="AcceleratorKey" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_AccessKey" Content="AccessKey" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ClassName" Content="ClassName" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_FrameworkId" Content="FrameworkId" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_HasKeyboardFocus" Content="HasKeyboardFocus" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_HelpText" Content="HelpText" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsContentElement" Content="IsContentElement" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsControlElement" Content="IsControlElement" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsEnabled" Content="IsEnable" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsKeyboardFocusable" Content="IsKeyboardFocusable" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsOffscreen" Content="IsOffScreen" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsPassword" Content="IsPassword" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsRequiredForForm" Content="IsRequiredForForm" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ItemStatus" Content="Item Status" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ItemType" Content="ItemType" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_LocalizedControlType" Content="LocalizedControlType" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Name" Content="Name" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_NativeWindowHandle" Content="NativeWindowHandle" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ProcessId" Content="ProcessId" BorderThickness="0"></Label>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <Label Name="tb_value_Id" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_DesignedId" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_DesignedName" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ElementType" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Parent" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Children" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ElementPath" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ImageCaptureEncoded" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Acceleratorvalue" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Accessvalue" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ClassName" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_FrameworkId" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_HasvalueboardFocus" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_HelpText" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsContentElement" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsControlElement" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsEnabled" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsvalueboardFocusable" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsOffscreen" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsPassword" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsRequiredForForm" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ItemStatus" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ItemType" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_LocalizedControlType" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Name" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_NativeWindowHandle" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ProcessId" Content="" BorderThickness="0"></Label>
+                                    </StackPanel>
+                                </Grid>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+        <GridSplitter Grid.Row="3" Height="{StaticResource spliter_thickness}" 
+                    Background="{StaticResource splitter_color}"
+                    HorizontalAlignment="Stretch" />
+        <Grid x:Name="grid_raw_scenarios" Grid.Row="4">
+        </Grid>
+        <!--#region popup dialog-->
+        <Popup x:Name="popupDialog" HorizontalAlignment="Left"   
+                VerticalAlignment="Top" Width="{StaticResource popup_dialog_width}"
+             Height="{StaticResource popup_dialog_height}" Placement="Absolute">
+            <Border BorderBrush="#FFFB4A22" BorderThickness="1">
+                <Grid Background="#FFE0DCAF">
+                    <StackPanel Grid.Column="1"  Margin="0">
+                        <TextBlock Name="popupTextNotify" FontSize="15" Padding="4" >
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Popup>
+        <!--#endregion-->
+    </Grid>
+</Window>

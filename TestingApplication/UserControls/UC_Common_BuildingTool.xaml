@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="TestingApplication.UC_Common_BuildingTool"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestingApplication"
+        mc:Ignorable="d"
+        d:DesignHeight="300" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <!--<Grid>-->
+        <StackPanel>
+            <TextBlock>C# Building tool path</TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                <TextBlock Margin="0,0,3,0">(You can download Visual Studio 2017 Building tool from</TextBlock>
+                <TextBlock>           
+                    <Hyperlink NavigateUri="https://www.visualstudio.com/downloads/#build-tools-for-visual-studio-2017">
+                        here
+                    </Hyperlink>
+                </TextBlock>
+                <TextBlock>)</TextBlock>
+            </StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" x:Name="txt_building_tool_path" Margin="0,0,15,0" VerticalContentAlignment="Center"/>
+                <Button Grid.Column="1" x:Name="btnBrowse_building_tool" Content="Browse..." HorizontalAlignment="Center" VerticalAlignment="Center" Width="76" Height="24"
+                        Click="BtnBrowse_Click"/>
+            </Grid>
+        </StackPanel>
+    <!--</Grid>-->
+</UserControl>

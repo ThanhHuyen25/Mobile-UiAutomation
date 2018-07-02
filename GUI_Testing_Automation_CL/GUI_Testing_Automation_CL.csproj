@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{647C387D-CBDD-4911-A922-557A25BE1968}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GUI_Testing_Automation</RootNamespace>
+    <AssemblyName>GUI_Testing_Automation</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\EnvDTE.8.0.2\lib\net10\EnvDTE.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\EnvDTE80.8.0.2\lib\net10\EnvDTE80.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\stdole.7.0.3302\lib\net10\stdole.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TestApiCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestApi.0.6.0.0\lib\net40\TestApiCore.dll</HintPath>
+    </Reference>
+    <Reference Include="TestApiWpf, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestApi.0.6.0.0\lib\net40\TestApiWpf.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationClientsideProviders" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsInput, Version=1.0.4.0, Culture=neutral, PublicKeyToken=9b287f7dc5073cad, processorArchitecture=MSIL">
+      <HintPath>..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\OtherElements\Delay.cs" />
+    <Compile Include="Model\OtherElements\Keyboard.cs" />
+    <Compile Include="Model\OtherElements\Wait.cs" />
+    <Compile Include="Model\Path\ElementPath.cs" />
+    <Compile Include="Model\Path\IElementPath.cs" />
+    <Compile Include="Model\Report\AbstractItemTestReport.cs" />
+    <Compile Include="Model\Report\ActionReport.cs" />
+    <Compile Include="Model\Report\IActionReport.cs" />
+    <Compile Include="Model\Report\ITestingItemReport.cs" />
+    <Compile Include="Model\Report\TestingFolderReport.cs" />
+    <Compile Include="Model\Report\TestingGroupReport.cs" />
+    <Compile Include="Model\Report\TestingModuleReport.cs" />
+    <Compile Include="Model\Report\TestingReportModel.cs" />
+    <Compile Include="Model\Report\ValidationActionReport.cs" />
+    <Compile Include="Model\Runtime\RuntimeInstance.cs" />
+    <Compile Include="Model\Search\ElementWithParentCondition.cs" />
+    <Compile Include="Model\Search\IdAndNameDesignCondition.cs" />
+    <Compile Include="Model\Search\AbstractSearchCondition.cs" />
+    <Compile Include="Model\Search\SearchAutomationElement.cs" />
+    <Compile Include="Model\Search\Search.cs" />
+    <Compile Include="Model\Search\TypeCondition.cs" />
+    <Compile Include="Model\UIElements\ButtonElement.cs" />
+    <Compile Include="Model\UIElements\CalendarElement.cs" />
+    <Compile Include="Model\UIElements\CheckBoxElement.cs" />
+    <Compile Include="Model\UIElements\ComboBoxElement.cs" />
+    <Compile Include="Model\UIElements\ContainerElement.cs" />
+    <Compile Include="Model\UIElements\ContainerElementBase.cs" />
+    <Compile Include="Model\UIElements\CustomElement.cs" />
+    <Compile Include="Model\UIElements\DatagridElement.cs" />
+    <Compile Include="Model\UIElements\DataitemElement.cs" />
+    <Compile Include="Model\UIElements\EditableTextElement.cs" />
+    <Compile Include="Model\UIElements\ElementBase.cs" />
+    <Compile Include="Model\UIElements\IElementProperties.cs" />
+    <Compile Include="Model\UIElements\GroupELement.cs" />
+    <Compile Include="Model\UIElements\HeaderElement.cs" />
+    <Compile Include="Model\UIElements\HeaderItemElement.cs" />
+    <Compile Include="Model\UIElements\LinkElement.cs" />
+    <Compile Include="Model\UIElements\IContainerElement.cs" />
+    <Compile Include="Model\UIElements\IElement.cs" />
+    <Compile Include="Model\UIElements\ListElement.cs" />
+    <Compile Include="Model\UIElements\ListItemElement.cs" />
+    <Compile Include="Model\UIElements\ImageElement.cs" />
+    <Compile Include="Model\UIElements\MenuBarElement.cs" />
+    <Compile Include="Model\UIElements\MenuElement.cs" />
+    <Compile Include="Model\UIElements\MenuItemElement.cs" />
+    <Compile Include="Model\UIElements\Mobile\Android\AbstractAndroidElement.cs" />
+    <Compile Include="Model\UIElements\ProgressBarElement.cs" />
+    <Compile Include="Model\UIElements\RanorexElement.cs" />
+    <Compile Include="Model\UIElements\Ranorex\AbstractRanorexElement.cs" />
+    <Compile Include="Model\UIElements\Ranorex\AppFolderRanorexElement.cs" />
+    <Compile Include="Model\UIElements\Ranorex\FolderRanorexElement.cs" />
+    <Compile Include="Model\UIElements\Ranorex\RanorexUnknowElement.cs" />
+    <Compile Include="Model\UIElements\SeparatorElement.cs" />
+    <Compile Include="Model\UIElements\SliderElement.cs" />
+    <Compile Include="Model\UIElements\SpinnerElement.cs" />
+    <Compile Include="Model\UIElements\SplitButtonElement.cs" />
+    <Compile Include="Model\UIElements\StatusBarElement.cs" />
+    <Compile Include="Model\UIElements\ToolBarElement.cs" />
+    <Compile Include="Model\UIElements\ToolTipElement.cs" />
+    <Compile Include="Model\UIElements\CellElement.cs" />
+    <Compile Include="Model\UIElements\RowElement.cs" />
+    <Compile Include="Model\UIElements\UnknownElement.cs" />
+    <Compile Include="Model\UIElements\RadioButtonElement.cs" />
+    <Compile Include="Model\UIElements\ScrollBarElement.cs" />
+    <Compile Include="Model\UIElements\TabItemElement.cs" />
+    <Compile Include="Model\UIElements\TableElement.cs" />
+    <Compile Include="Model\UIElements\TabPageElement.cs" />
+    <Compile Include="Model\UIElements\TextElement.cs" />
+    <Compile Include="Model\UIElements\TitleBarElement.cs" />
+    <Compile Include="Model\UIElements\TreeItemElement.cs" />
+    <Compile Include="Model\UIElements\TreeViewElement.cs" />
+    <Compile Include="Model\UIElements\WindowElement.cs" />
+    <Compile Include="Model\OtherElements\Validate.cs" />
+    <Compile Include="Parser\IInspecting.cs" />
+    <Compile Include="Parser\InspectElement.cs" />
+    <Compile Include="Parser\TestReportFileLoader.cs" />
+    <Compile Include="Parser\XmlFilesLoader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Template\AbstractTestModule.cs" />
+    <Compile Include="Template\AbstractTestRun.cs" />
+    <Compile Include="Template\ITestModule.cs" />
+    <Compile Include="Template\ITestRun.cs" />
+    <Compile Include="Utilities\CaptureElement.cs" />
+    <Compile Include="Utilities\Comparison.cs" />
+    <Compile Include="Utilities\Handler.cs" />
+    <Compile Include="Utilities\GUI_Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="GUI_Testing_Automation_CL.licenseheader" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

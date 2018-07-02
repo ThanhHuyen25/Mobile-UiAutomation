@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FA83EF52-ADE2-4D5F-9413-25177C4DF9E0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TestingApplication</RootNamespace>
+    <AssemblyName>TestingApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\EnvDTE.8.0.2\lib\net10\EnvDTE.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\EnvDTE80.8.0.3\lib\net10\EnvDTE80.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gma.System.MouseKeyHook, Version=5.6.130.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MouseKeyHook.5.6.0\lib\net40\Gma.System.MouseKeyHook.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.8.4.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis, Version=2.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.2.8.2\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.2.8.2\lib\netstandard1.3\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\stdole.7.0.3303\lib\net10\stdole.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="TestApiCore, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestApi.0.6.0.0\lib\net40\TestApiCore.dll</HintPath>
+    </Reference>
+    <Reference Include="TestApiWpf, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.TestApi.0.6.0.0\lib\net40\TestApiWpf.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationClientsideProviders" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Analyzer\AbstractFileAnalyzer.cs" />
+    <Compile Include="Analyzer\AbstractProjectAnalyzer.cs" />
+    <Compile Include="Analyzer\CsFileAnalyzer.cs" />
+    <Compile Include="Analyzer\CsprojFileAnalyzer.cs" />
+    <Compile Include="Analyzer\IFileAnalyzer.cs" />
+    <Compile Include="Analyzer\Inspector\ElementDiscoverManual.cs" />
+    <Compile Include="Analyzer\Inspector\ElementHoverHelper.cs" />
+    <Compile Include="Analyzer\Inspector\ElementsAnalyzer.cs" />
+    <Compile Include="Analyzer\Inspector\IElementsAnalyzer.cs" />
+    <Compile Include="Analyzer\IProjectAnalyser.cs" />
+    <Compile Include="Analyzer\ProjectAnalyzer.cs" />
+    <Compile Include="Analyzer\ProjectBuilder\CsFileModifier.cs" />
+    <Compile Include="Analyzer\ProjectBuilder\CsprojFileModifier.cs" />
+    <Compile Include="Analyzer\ProjectBuilder\ProjectModifier.cs" />
+    <Compile Include="Analyzer\ProjectBuilder\ProjectRebuilding.cs" />
+    <Compile Include="Analyzer\ProjectLoader.cs" />
+    <Compile Include="Analyzer\Ranorex\RanorexRxrepAnalyzer.cs" />
+    <Compile Include="Analyzer\Search\CsFileSearchCondition.cs" />
+    <Compile Include="Analyzer\Search\CsprojSearchCondition.cs" />
+    <Compile Include="Analyzer\Search\FilePathCondition.cs" />
+    <Compile Include="Analyzer\Search\ISearchCondition.cs" />
+    <Compile Include="Analyzer\Search\SearchCondition.cs" />
+    <Compile Include="Analyzer\Search\SearchFile.cs" />
+    <Compile Include="Analyzer\Specification\ExcelSpecificationParser.cs" />
+    <Compile Include="Analyzer\Specification\FunctionSheetParser.cs" />
+    <Compile Include="Analyzer\Specification\Model\AbstractNode.cs" />
+    <Compile Include="Analyzer\Specification\Model\AbstractScenario.cs" />
+    <Compile Include="Analyzer\Specification\Model\AbstractScreen.cs" />
+    <Compile Include="Analyzer\Specification\Model\AbstractSheet.cs" />
+    <Compile Include="Analyzer\Specification\Model\AbstractUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\ClassExpression.cs" />
+    <Compile Include="Analyzer\Specification\Model\FunctionDescriptionSheet.cs" />
+    <Compile Include="Analyzer\Specification\Model\FunctionExpression.cs" />
+    <Compile Include="Analyzer\Specification\Model\INode.cs" />
+    <Compile Include="Analyzer\Specification\Model\IScenario.cs" />
+    <Compile Include="Analyzer\Specification\Model\IScreen.cs" />
+    <Compile Include="Analyzer\Specification\Model\IScriptGenerationParams.cs" />
+    <Compile Include="Analyzer\Specification\Model\IUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\NormalSheet.cs" />
+    <Compile Include="Analyzer\Specification\Model\ParameterExpression.cs" />
+    <Compile Include="Analyzer\Specification\Model\Ranorex\IRanorexScriptGenerationParams.cs" />
+    <Compile Include="Analyzer\Specification\Model\Ranorex\RanorexScriptGenerationParams.cs" />
+    <Compile Include="Analyzer\Specification\Model\Ranorex\RanorexUCScriptGenerationParams.cs" />
+    <Compile Include="Analyzer\Specification\Model\Ranorex\RanorexValidationUCScriptGenerationParams.cs" />
+    <Compile Include="Analyzer\Specification\Model\Ranorex\RanorexWaitValidateScriptGenerationParams.cs" />
+    <Compile Include="Analyzer\Specification\Model\ScriptGenerationParams.cs" />
+    <Compile Include="Analyzer\Specification\Model\ScriptsExpression.cs" />
+    <Compile Include="Analyzer\Specification\Model\SpecNode.cs" />
+    <Compile Include="Analyzer\Specification\Model\SpecScenario.cs" />
+    <Compile Include="Analyzer\Specification\Model\SpecScreen.cs" />
+    <Compile Include="Analyzer\Specification\Model\TestSpecificationScreen.cs" />
+    <Compile Include="Analyzer\Specification\Model\TestSpecificationSheet.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\AbstractSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\CaptureSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\CheckExistSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\ClickSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\CloseAppSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\ContainSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\DelaySpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\DoubleClickSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\DropSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\GetSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\KeyboardSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\OpenAppSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\PostWaitValidateSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\PressSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\PreWaitValidateSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\RightClickSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\SetSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\UserCodeSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\ValidationSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\ValidationUserCodeSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\WaitExistSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\Model\UserAction\WaitValidateSpecUserAction.cs" />
+    <Compile Include="Analyzer\Specification\NormalSheetParser.cs" />
+    <Compile Include="Analyzer\Specification\TestSpecSheetParser.cs" />
+    <Compile Include="Analyzer\Specification\UserActionSpecAnalyzer.cs" />
+    <Compile Include="Analyzer\TreeViewBuilder\BuildingTreeView.cs" />
+    <Compile Include="Analyzer\TreeViewBuilder\ElementItemVisual.cs" />
+    <Compile Include="Analyzer\TreeViewBuilder\IBuildingTreeView.cs" />
+    <Compile Include="Generation\ArgumentInitElement.cs" />
+    <Compile Include="Generation\ClassGeneration.cs" />
+    <Compile Include="Generation\ElementCSharpCodeGeneration.cs" />
+    <Compile Include="Generation\ElementXmlGeneration.cs" />
+    <Compile Include="Generation\IProjectGeneration.cs" />
+    <Compile Include="Generation\PictMasterFileGeneration.cs" />
+    <Compile Include="Generation\ProjectGeneration.cs" />
+    <Compile Include="Generation\Ranorex\ModifyRanorexProjectProperties.cs" />
+    <Compile Include="Generation\Ranorex\RanorexSolutionGeneration.cs" />
+    <Compile Include="Generation\RelativeElementsScriptGeneration.cs" />
+    <Compile Include="Generation\ScriptsGeneration\CSharpScriptsGeneration.cs" />
+    <Compile Include="Generation\ScriptsGeneration\RanorexScriptsGeneration.cs" />
+    <Compile Include="Generation\SpecificationExcelFileGeneration.cs" />
+    <Compile Include="Generation\TestingReportGeneration.cs" />
+    <Compile Include="Generation\VsSolutionGeneration.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Apps\AppRunning.cs" />
+    <Compile Include="Model\File\AbstractFile.cs" />
+    <Compile Include="Model\File\ConfigFile.cs" />
+    <Compile Include="Model\File\CsFile.cs" />
+    <Compile Include="Model\File\CsprojFile.cs" />
+    <Compile Include="Model\File\ExeFile.cs" />
+    <Compile Include="Model\File\Folder.cs" />
+    <Compile Include="Model\File\IFile.cs" />
+    <Compile Include="Model\File\UndefinedFile.cs" />
+    <Compile Include="Model\File\Wfa\CsprojWfaFile.cs" />
+    <Compile Include="Model\File\Wpf\CsprojWpfFile.cs" />
+    <Compile Include="Model\File\XamlFile.cs" />
+    <Compile Include="Model\Project\AbstractProject.cs" />
+    <Compile Include="Model\Project\IProject.cs" />
+    <Compile Include="Model\Project\WfaProject.cs" />
+    <Compile Include="Model\Project\WpfProject.cs" />
+    <Compile Include="Model\Wfa\FormWfa.cs" />
+    <Compile Include="Model\Wpf\PageWpf.cs" />
+    <Compile Include="Model\Wpf\WindowWpf.cs" />
+    <Compile Include="UserControls\IComponentState.cs" />
+    <Compile Include="UserControls\UCTestScenarios.xaml.cs">
+      <DependentUpon>UCTestScenarios.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UC_Common_BuildingTool.xaml.cs">
+      <DependentUpon>UC_Common_BuildingTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UC_GUI_Testing_Automation_Ref.xaml.cs">
+      <DependentUpon>UC_GUI_Testing_Automation_Ref.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UC_Nuget.xaml.cs">
+      <DependentUpon>UC_Nuget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UC_Time_Mouse_Hover.xaml.cs">
+      <DependentUpon>UC_Time_Mouse_Hover.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UC_Vstemplate_Output_Proj.xaml.cs">
+      <DependentUpon>UC_vstemplate_output_proj.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\MyLog.cs" />
+    <Compile Include="Utilities\Testing.cs" />
+    <Compile Include="Utilities\Utils.cs" />
+    <Compile Include="Windows\AppSelection.xaml.cs">
+      <DependentUpon>AppSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\OptionsWindow.xaml.cs">
+      <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProgressDialog.xaml.cs">
+      <DependentUpon>ProgressDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\UCTestScenarios.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\UC_Common_BuildingTool.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\UC_GUI_Testing_Automation_Ref.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\UC_Nuget.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\UC_Time_Mouse_Hover.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\UC_vstemplate_output_proj.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\AppSelection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\OptionsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ProgressDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Log Output\project.log" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\MyTestProject.zip" />
+    <None Include="Resources\PictMaster-Template.xls" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\application-form-icon.png" />
+    <Resource Include="Resources\Application-form.ico" />
+    <Resource Include="Resources\arrow_down.png" />
+    <Resource Include="Resources\arrow_forward.png" />
+    <Resource Include="Resources\default_windows_app.png" />
+    <Resource Include="Resources\export_proj_icon.png" />
+    <Resource Include="Resources\icons\application-search-icon.png" />
+    <Resource Include="Resources\icons\blocks.gif" />
+    <Resource Include="Resources\icons\CloseDocument_32x.png" />
+    <Resource Include="Resources\icons\CloseDocument_Disable_32x.png" />
+    <Resource Include="Resources\icons\default_windows_app.png" />
+    <Resource Include="Resources\icons\Export_30x.png" />
+    <Resource Include="Resources\icons\Export_Disable_30x.png" />
+    <Resource Include="Resources\icons\export_icon_x25.jpg" />
+    <Resource Include="Resources\icons\Import_16x.png" />
+    <Resource Include="Resources\icons\Import_Disable_16x.png" />
+    <Resource Include="Resources\icons\new_icon_x25.jpg" />
+    <Resource Include="Resources\icons\running_apps_40x.png" />
+    <Resource Include="Resources\icons\Save_40x.png" />
+    <Resource Include="Resources\icons\Save_Disable_40x.png" />
+    <Resource Include="Resources\icons\save_icon_x25.jpg" />
+    <Resource Include="Resources\icons\Settings_16x.png" />
+    <Resource Include="Resources\icons\VSO_NewFile_40x.png" />
+    <Resource Include="Resources\treeview_icons\back_up_icon\button_icon.png" />
+    <Resource Include="Resources\treeview_icons\back_up_icon\checkbox_icon.png" />
+    <Resource Include="Resources\treeview_icons\back_up_icon\textbox_icon.png" />
+    <Resource Include="Resources\treeview_icons\back_up_icon\text_icon.png" />
+    <Resource Include="Resources\treeview_icons\back_up_icon\unknown_icon.png" />
+    <Resource Include="Resources\treeview_icons\BarChart_24x.png" />
+    <Resource Include="Resources\treeview_icons\BarSeries_16x.png" />
+    <Resource Include="Resources\treeview_icons\Button_16x.png" />
+    <Resource Include="Resources\treeview_icons\button_icon.png" />
+    <Resource Include="Resources\treeview_icons\CheckBox_16x.png" />
+    <Resource Include="Resources\treeview_icons\checkbox_icon.png" />
+    <Resource Include="Resources\treeview_icons\Checklist_16x.png" />
+    <Resource Include="Resources\treeview_icons\ComboBoxItem_16x.png" />
+    <Resource Include="Resources\treeview_icons\ComboBox_16x.png" />
+    <Resource Include="Resources\treeview_icons\DataGrid_24x.png" />
+    <Resource Include="Resources\treeview_icons\Group_16x.png" />
+    <Resource Include="Resources\treeview_icons\HeaderFile_24x.png" />
+    <Resource Include="Resources\treeview_icons\Image_16x.png" />
+    <Resource Include="Resources\treeview_icons\Item_16x.png" />
+    <Resource Include="Resources\treeview_icons\Link_16x.png" />
+    <Resource Include="Resources\treeview_icons\ListBox_16x.png" />
+    <Resource Include="Resources\treeview_icons\MenuItem_16x.png" />
+    <Resource Include="Resources\treeview_icons\RadioButton_16x.png" />
+    <Resource Include="Resources\treeview_icons\Row_24x.png" />
+    <Resource Include="Resources\treeview_icons\ScrollBar_24x.png" />
+    <Resource Include="Resources\treeview_icons\Separator_16x.png" />
+    <Resource Include="Resources\treeview_icons\Table_16x.png" />
+    <Resource Include="Resources\treeview_icons\TabPage_16x.png" />
+    <Resource Include="Resources\treeview_icons\Tab_24x.png" />
+    <Resource Include="Resources\treeview_icons\TextBox_16x.png" />
+    <Resource Include="Resources\treeview_icons\textbox_icon.png" />
+    <Resource Include="Resources\treeview_icons\Text_16x.png" />
+    <Resource Include="Resources\treeview_icons\text_icon.png" />
+    <Resource Include="Resources\treeview_icons\TreeView_16x.png" />
+    <Resource Include="Resources\treeview_icons\unknown_icon.png" />
+    <Resource Include="Resources\treeview_icons\WindowsForm_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\ConsoleTemplate\Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GUI_Testing_Automation_CL\GUI_Testing_Automation_CL.csproj">
+      <Project>{647c387d-cbdd-4911-a922-557a25be1968}</Project>
+      <Name>GUI_Testing_Automation_CL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
+    <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.1.1.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.17\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.17\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.17\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.SDK.EmbedInteropTypes.15.0.17\build\Microsoft.VisualStudio.SDK.EmbedInteropTypes.targets'))" />
+  </Target>
+</Project>

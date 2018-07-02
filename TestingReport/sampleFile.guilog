@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report Name="MyTestProject">
+  <ModuleCollection>
+    <Module Name="FeatureX_1" RelativeFilePath="FeatureX\FeatureX_1">
+      <ActionCollection>
+        <Action Category="Procedure" Status="Success" Message="procedure134355 success" />
+        <Action Category="Validation" Status="Failure" Message="Element Textbox1's text not equal expected value 'text1'" />
+		    <Action Category="Procedure2" Status="Success" Message="procedure2 success" />
+      </ActionCollection>
+    </Module>
+    <Module Name="FeatureX_2" RelativeFilePath="FeatureX\FeatureX_2">
+      <ActionCollection>
+        <Action Category="Validation" Status="Failure" Message="Element Textbox2's text not equal expected value 'text2'" 
+		ImageCapturePath="Reports\Images\Capture.PNG" />
+      </ActionCollection>
+    </Module>
+    <Module Name="FeatureBeta_2" RelativeFilePath="FeatureBeta\FeatureBeta_2">
+      <ActionCollection>
+        <Action Category="Procedure2" Status="Success" Message="procedure2 success" />
+        <Action Category="Validation" Status="Success" Message="Element Textbox2's text equal expected value 'text2'" />
+      </ActionCollection>
+    </Module>
+	<Module Name="FeatureBeta_2" RelativeFilePath="FeatureBeta\FeatureBeta_3">
+      <ActionCollection>
+        <Action Category="Procedure2" Status="Success" Message="procedure2 success" />
+        <Action Category="Validation" Status="Success" Message="Element Textbox2's text equal expected value 'text2'" />
+      </ActionCollection>
+    </Module>
+	<Module Name="FeatureBeta_2" RelativeFilePath="FeatureBeta\FeatureBeta_4">
+      <ActionCollection>
+        <Action Category="Procedure2" Status="Error" Message="procedure2 success" />
+        <Action Category="Validation" Status="Success" Message="Element Textbox2's text equal expected value 'text2'" />
+      </ActionCollection>
+    </Module>
+  </ModuleCollection>
+</Report>

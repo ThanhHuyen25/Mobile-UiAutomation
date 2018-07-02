@@ -1,0 +1,7 @@
+1, With git:
+- Don't push any references (libraries) which can be sync automatically by nuget. This mean that: ONLY push references not from nuget (e.g. Microsoft.CodeAnalysis) and check carefully before push to prevent missing some packages.
+- Don't push any changes with file .gitignore unless you was familiar on working with it.
+- Don't push any file in .gitignore like *.log, Bin/Debug/, etc. (by defaut, these files will not be staged, unless you modified .gitignore file)
+
+
+#Update new here

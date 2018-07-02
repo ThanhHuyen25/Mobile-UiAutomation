@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/MobileTestToolSln/v15
+/*/packages
+/*/.vs/TestingWebSln/v15
+/*/bin/Debug
+/*/obj/Debug
+/*/WpfApp1
+/*/obj
+/*/project.log
+/*/Debug
+/.vs
+/packages

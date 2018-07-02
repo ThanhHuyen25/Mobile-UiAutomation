@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TestingApplication.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="msbuild_version" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">14</Value>
+    </Setting>
+    <Setting Name="vs_msbuild_path" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe</Value>
+    </Setting>
+    <Setting Name="path_GUI_Testing_Automation_ref" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Research\projects\GUI-Testing-Automation\GUI_Testing_Automation_CL\bin\Debug\GUI_Testing_Automation.dll</Value>
+    </Setting>
+    <Setting Name="path_to_vstemplate_output_proj" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\Research\projects\GUI-Testing-Automation\VsGenerationTest\Visual C#\ProjectGenTemplate\MyTemplate.vstemplate</Value>
+    </Setting>
+    <Setting Name="time_mouse_hover" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="nuget_path" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\apps\nuget.exe</Value>
+    </Setting>
+    <Setting Name="divide1_per" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.3</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
