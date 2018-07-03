@@ -540,6 +540,43 @@ namespace TestingApplication
             Properties.Settings.Default.divide1_per = p1 / (p1 + p2);
             Properties.Settings.Default.Save();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // .dll path
+            if (Properties.Settings.Default.path_GUI_Testing_Automation_ref == null)
+            {
+                string app_path = System.Reflection.Assembly.GetEntryAssembly().Location;
+                string folder = new FileInfo(app_path).DirectoryName;
+                string new_path = Path.Combine(folder, "GUI_Testing_Automation.dll");
+                if (File.Exists(new_path))
+                {
+                    Properties.Settings.Default.path_GUI_Testing_Automation_ref = new_path;
+                    Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    var result = System.Windows.MessageBox.Show(
+                        "Not define library path yet! Please select path to GUI_Testing_Automation.dll file!",
+                        "Choose library path",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.OK)
+                    {
+                        OpenFileDialog openFileDialog = new OpenFileDialog();
+                        openFileDialog.Title = "Select GUI_Testing_Automation.dll file";
+                        openFileDialog.Filter = "Dynamic library|*.dll";
+                        openFileDialog.FilterIndex = 1;
+                        openFileDialog.RestoreDirectory = true;
+                        if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            Properties.Settings.Default.path_GUI_Testing_Automation_ref = openFileDialog.FileName;
+                            Properties.Settings.Default.Save();
+                        }
+                    }
+                }
+            }
+        }
         #endregion end UI control events
 
         #region common actions
@@ -1242,6 +1279,16 @@ namespace TestingApplication
         }
         #endregion util functions
 
+        #region Mobile
+        private void AndroidInspect()
+        {
+            // show gui
+            // send adb dump command
+            // parse .xml file to get List<IElement>
+            // visulize elements tree
+        }
+        #endregion
+
         /// <summary>
         /// for deploy
         /// </summary>
@@ -1251,42 +1298,7 @@ namespace TestingApplication
             Properties.Settings.Default.Save();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            // .dll path
-            if (Properties.Settings.Default.path_GUI_Testing_Automation_ref == null)
-            {
-                string app_path = System.Reflection.Assembly.GetEntryAssembly().Location;
-                string folder = new FileInfo(app_path).DirectoryName;
-                string new_path = Path.Combine(folder, "GUI_Testing_Automation.dll");
-                if (File.Exists(new_path))
-                {
-                    Properties.Settings.Default.path_GUI_Testing_Automation_ref = new_path;
-                    Properties.Settings.Default.Save();
-                }
-                else
-                {
-                    var result = System.Windows.MessageBox.Show(
-                        "Not define library path yet! Please select path to GUI_Testing_Automation.dll file!",
-                        "Choose library path",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
-                    if (result == MessageBoxResult.OK)
-                    {
-                        OpenFileDialog openFileDialog = new OpenFileDialog();
-                        openFileDialog.Title = "Select GUI_Testing_Automation.dll file";
-                        openFileDialog.Filter = "Dynamic library|*.dll";
-                        openFileDialog.FilterIndex = 1;
-                        openFileDialog.RestoreDirectory = true;
-                        if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                        {
-                            Properties.Settings.Default.path_GUI_Testing_Automation_ref = openFileDialog.FileName;
-                            Properties.Settings.Default.Save();
-                        }
-                    }
-                }
-            }
-        }
+        
     }
 
     /// <summary>
