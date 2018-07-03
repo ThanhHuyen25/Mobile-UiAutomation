@@ -1297,8 +1297,6 @@ namespace TestingApplication
             Properties.Settings.Default.path_GUI_Testing_Automation_ref = null;
             Properties.Settings.Default.Save();
         }
-
-        
     }
 
     /// <summary>

@@ -12,8 +12,14 @@ namespace TestingApplication
 {
     public class AndroidAdbDumpFileParser
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns>only root elements</returns>
         public List<IElement> Parse(string filePath)
         {
+            // implement here
             throw new NotImplementedException();
         }
     }
