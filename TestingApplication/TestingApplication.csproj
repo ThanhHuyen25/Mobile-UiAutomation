@@ -114,6 +114,8 @@
     <Compile Include="Analyzer\Inspector\ElementsAnalyzer.cs" />
     <Compile Include="Analyzer\Inspector\IElementsAnalyzer.cs" />
     <Compile Include="Analyzer\IProjectAnalyser.cs" />
+    <Compile Include="Analyzer\Mobile\AndroidAdbCommand.cs" />
+    <Compile Include="Analyzer\Mobile\AndroidAdbDumpFileParser.cs" />
     <Compile Include="Analyzer\ProjectAnalyzer.cs" />
     <Compile Include="Analyzer\ProjectBuilder\CsFileModifier.cs" />
     <Compile Include="Analyzer\ProjectBuilder\CsprojFileModifier.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="Model\File\Wfa\CsprojWfaFile.cs" />
     <Compile Include="Model\File\Wpf\CsprojWpfFile.cs" />
     <Compile Include="Model\File\XamlFile.cs" />
+    <Compile Include="Model\Mobile\AndroidDevice.cs" />
     <Compile Include="Model\Project\AbstractProject.cs" />
     <Compile Include="Model\Project\IProject.cs" />
     <Compile Include="Model\Project\WfaProject.cs" />
@@ -327,6 +330,7 @@
     </None>
     <None Include="Resources\MyTestProject.zip" />
     <None Include="Resources\PictMaster-Template.xls" />
+    <None Include="TestingApplication.licenseheader" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
