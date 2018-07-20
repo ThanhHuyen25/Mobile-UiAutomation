@@ -73,12 +73,12 @@ namespace TestingApplication
             }
             if (path != null)
             {
-                p.StartInfo.Arguments ="-s "+device.Ip+ " pull " + path + " C:/Users/catty/Desktop";
+                p.StartInfo.Arguments ="-s "+device.Ip+ " pull " + path + " C:/ProgramData";
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
                 p.Start();
                 string output = p.StandardOutput.ReadToEnd();
-                return "C:/Users/catty/Desktop/window_dump.xml";
+                return "C:/ProgramData/window_dump.xml";
 
                 // string output = "pull " + path + " C:/Users/catty/Desktop";
                 //this.TextBox1.Text = output;
