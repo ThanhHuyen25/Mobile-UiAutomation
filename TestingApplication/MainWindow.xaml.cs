@@ -22,6 +22,7 @@ using Gma.System.MouseKeyHook;
 using System.Threading;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using TestingApplication.Windows;
 
 namespace TestingApplication
 {
@@ -298,7 +299,8 @@ namespace TestingApplication
         /// <param name="e"></param>
         private void NewInspection_Click(object sender, RoutedEventArgs e)
         {
-            ChooseNewFileUI();
+            new ChoiceWindow().Show();
+            //ChooseNewFileUI();
         }
                 
         /// <summary>
