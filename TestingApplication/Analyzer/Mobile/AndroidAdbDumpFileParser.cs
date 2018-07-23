@@ -93,7 +93,7 @@ namespace TestingApplication
             }
         }
 
-        //
+        //**
         // set properties
         //
         private void setProperties(IElement element, XmlNode node)
