@@ -100,10 +100,9 @@ namespace TestingApplication
         {
             if (node.Attributes != null)
             {
-                //element.Attributes.Na = node.Attributes["text"].Value;
                 element.Attributes.Index = Int32.Parse(node.Attributes["index"].Value);
                 element.Attributes.Text = node.Attributes["text"].Value;
-                element.Attributes.ClassName = node.Attributes["class"].Value;
+                //element.Attributes.ClassName = node.Attributes["class"].Value;
                 element.Attributes.Package = node.Attributes["package"].Value;
                 element.Attributes.ContentDesc = node.Attributes["content-desc"].Value;
                 element.Attributes.Checkable = node.Attributes["checkable"].Value.Equals(true);
