@@ -16,14 +16,17 @@ namespace TestingApplication
             // send adb command "adb devices -l" here
             int i = 26;
             List<AndroidDevice> Devices = new List<AndroidDevice>();
+            
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.FileName = "adb";
             p.StartInfo.Arguments = "devices";
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true; //an man hinh
             p.Start();
             string output1 = p.StandardOutput.ReadToEnd();
+            
             int l = output1.Length;
             while ((i + 2) < output1.Length)
             {
@@ -33,6 +36,7 @@ namespace TestingApplication
                 p.StartInfo.Arguments = "-s" + test + " shell getprop ro.product.model";
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true; // an man hinh
                 p.Start();
                 string output = p.StandardOutput.ReadToEnd();
                 output = output.Replace("\r", "");
@@ -59,8 +63,10 @@ namespace TestingApplication
             p.StartInfo.Arguments = "-s "+device.Ip+ " shell uiautomator dump";
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true; //an man hinh
             p.Start();
             string command = p.StandardOutput.ReadToEnd();
+            //p.Close();
             command = command.Replace("\r", " ");
             string path = "";
             string[] words = command.Split(' ');
