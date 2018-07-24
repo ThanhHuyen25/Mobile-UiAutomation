@@ -30,7 +30,7 @@ namespace TestingApplication
     /// Interaction logic for MainWindow.xaml
     /// IMPORTANT NOTE: PUT FUNCTION INTO CORRECT REGION
     /// </summary>
-    public partial class MainWindow : Window, INewElementAddedNotify, ISelectedAppNotify, IProgressResultNoti
+    public partial class MainWindow : Window, INewElementAddedNotify, ISelectedAppNotify, IProgressResultNoti, ISelectedDeviceNotify
     {
         #region attributes
         //------------------------------------------------------
@@ -64,6 +64,8 @@ namespace TestingApplication
         private ScriptType scriptType = ScriptType.Normal;
 
         private AppSelection appSelection;
+        //callback
+        private SelectDevice selectDevice;
         private const string DEFAULT_NULL_ELEMENT_ATTRIBUTE = "";
 
         // store all log to notify to user
@@ -78,6 +80,8 @@ namespace TestingApplication
             // enable this when release product
             Release();
             MyInit();
+            //List<IElement> elements = new AndroidAdbDumpFileParser().Parse("C:/ProgramData/window_dump.xml");
+            //SelectedDeviceCallBack(elements);
             // for debugging
             // DefaultLoad();
             //Testing();
@@ -297,12 +301,13 @@ namespace TestingApplication
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        //ISelectedDeviceNotify notify;
         private void NewInspection_Click(object sender, RoutedEventArgs e)
         {
-            new ChoiceWindow().Show();
             //ChooseNewFileUI();
+            new ChoiceWindow(this).Show();
         }
-                
+
         /// <summary>
         /// inspect instance app
         /// </summary>
@@ -987,6 +992,11 @@ namespace TestingApplication
             ResetAll();
             ProcessWithInstanceProcess(app.Process);
         }
+        //callblack
+        public void SelectedDeviceCallBack(List<IElement> elements)
+        {
+            elementsTreeView.ItemsSource = elements;
+        }
 
         #region progress dialog show callback
         public void OnSuccessful()
@@ -1301,12 +1311,19 @@ namespace TestingApplication
         }
     }
 
+
     /// <summary>
     /// notify when an app selected (for inspecting)
     /// </summary>
     public interface ISelectedAppNotify
     {
         void AppSelectedCallBack(AppRunning app);
+    }
+
+    //callback
+    public interface ISelectedDeviceNotify
+    {
+        void SelectedDeviceCallBack(List<IElement> elements);
     }
 
     public enum ScriptType
