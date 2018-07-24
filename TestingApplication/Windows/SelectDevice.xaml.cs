@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GUI_Testing_Automation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,10 @@ namespace TestingApplication.Windows
     /// </summary>
     public partial class SelectDevice : Window
     {
-        public SelectDevice()
+        private ISelectedDeviceNotify notify;
+        // close
+        private ICloseWindowNotify closeWindow;
+        private SelectDevice()
         {
             InitializeComponent();
             System.Diagnostics.Process p = new System.Diagnostics.Process();
@@ -34,6 +38,30 @@ namespace TestingApplication.Windows
                 listView.Items.Add(Devices[i].Name);
             }
             
+        }
+
+        //public SelectDevice(ICloseWindowNotify closeWindow) : this()
+        //{
+        //    this.closeWindow = closeWindow;
+        //}
+
+            // close
+        public SelectDevice(ISelectedDeviceNotify notify, ICloseWindowNotify closeWindow) : this()
+        {
+            this.notify = notify;
+            this.closeWindow = closeWindow;
+        }
+        public ISelectedDeviceNotify Notify
+        {
+            get { return notify; }
+            set { notify = value; }
+        }
+
+        // close
+        public ICloseWindowNotify CloseWindow
+        {
+            get { return closeWindow; }
+            set { closeWindow = value; }
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -60,7 +88,16 @@ namespace TestingApplication.Windows
                         if (Devices[j].Name == name)
                         {
                             string test = AdbCommand.DumpGUI(Devices[j]);
-                            MessageBox.Show(test);
+                            List<IElement> elements = new AndroidAdbDumpFileParser().Parse(test);
+                            //MessageBox.Show(test);
+                            if (elements != null)
+                            {
+                                // close
+                                this.Close();
+                                closeWindow.CloseWindow();
+                                notify.SelectedDeviceCallBack(elements);
+                                
+                            }
                             break;
                         }
                     }

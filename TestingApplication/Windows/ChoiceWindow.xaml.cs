@@ -17,17 +17,37 @@ namespace TestingApplication.Windows
     /// <summary>
     /// Interaction logic for ChoiceWindow.xaml
     /// </summary>
-    public partial class ChoiceWindow : Window
+    public partial class ChoiceWindow : Window, ICloseWindowNotify
     {
-        public ChoiceWindow()
+        private ISelectedDeviceNotify notify;
+        // close
+        private SelectDevice selectDevice;
+        private ChoiceWindow()
         {
             InitializeComponent();
         }
+        
+
+        public ISelectedDeviceNotify Notify { get => notify; set => notify = value; }
+
+
+        public ChoiceWindow(ISelectedDeviceNotify notify) : this()
+        {
+            this.notify = notify;
+        }
+
+        
+        // close
+        public void CloseWindow()
+        {
+            this.Close();
+        }
+        
+
+
         private void BtnWeb_Click(object render, RoutedEventArgs e)
         {
             this.Title = "Clicked";
-           
-            
         }
         private void BtnDesk_Click(object render, RoutedEventArgs e)
         {
@@ -36,8 +56,15 @@ namespace TestingApplication.Windows
         private void BtnAndroi_Click(object render, RoutedEventArgs e)
         {
             this.Title = "Success!!!";
-            new SelectDevice().Show(); //chuyen cua so
+            // chuyen cua so
+            // close
+            new SelectDevice(notify, this).Show();
         }
+    }
 
+    // close
+    public interface ICloseWindowNotify
+    {
+        void CloseWindow();
     }
 }
