@@ -100,6 +100,7 @@ namespace TestingApplication
         {
             if (node.Attributes != null)
             {
+
                 element.Attributes.Index = Int32.Parse(node.Attributes["index"].Value);
                 element.Attributes.Text = node.Attributes["text"].Value;
                 //element.Attributes.ClassName = node.Attributes["class"].Value;
