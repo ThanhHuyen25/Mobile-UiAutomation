@@ -14,7 +14,40 @@ namespace TestingApplication
         public List<AndroidDevice> GetAllDevices()
         {
             // send adb command "adb devices -l" here
-            throw new NotImplementedException();
+            int i = 26;
+            List<AndroidDevice> Devices = new List<AndroidDevice>();
+
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.FileName = "adb";
+            p.StartInfo.Arguments = "devices";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true; //an man hinh
+            p.Start();
+            string output1 = p.StandardOutput.ReadToEnd();
+
+            int l = output1.Length;
+            while ((i + 2) < output1.Length)
+            {
+                string test = output1.Substring(i, 19);
+                AndroidDevice android = new AndroidDevice();
+                android.Ip = test;
+                p.StartInfo.Arguments = "-s" + test + " shell getprop ro.product.model";
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true; // an man hinh
+                p.Start();
+                string output = p.StandardOutput.ReadToEnd();
+                output = output.Replace("\r", "");
+                output = output.Replace("\n", "");
+                android.Name = output;
+                Devices.Add(android);
+                i = i + 28;
+
+            }
+            //throw new NotImplementedException();
+            return Devices;
         }
 
         /// <summary>
@@ -24,6 +57,38 @@ namespace TestingApplication
         /// <returns>path to dump .xml file</returns>
         public string DumpGUI(AndroidDevice device)
         {
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.FileName = "adb";
+            p.StartInfo.Arguments = "-s " + device.Ip + " shell uiautomator dump";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true; //an man hinh
+            p.Start();
+            string command = p.StandardOutput.ReadToEnd();
+            //p.Close();
+            command = command.Replace("\r", " ");
+            string path = "";
+            string[] words = command.Split(' ');
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (words[i].Contains(".xml"))
+                {
+                    path = words[i];
+                }
+            }
+            if (path != null)
+            {
+                p.StartInfo.Arguments = "-s " + device.Ip + " pull " + path + " C:/ProgramData";
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.Start();
+                string output = p.StandardOutput.ReadToEnd();
+                return "C:/ProgramData/window_dump.xml";
+
+            }
+
+
             // send command "adb dump" to $device
             throw new NotImplementedException();
         }
