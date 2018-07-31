@@ -22,8 +22,6 @@ using Gma.System.MouseKeyHook;
 using System.Threading;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using TestingApplication.Windows;
-using System.Xml;
 
 namespace TestingApplication
 {
@@ -1323,7 +1321,6 @@ namespace TestingApplication
             Properties.Settings.Default.Save();
         }
     }
-
 
     /// <summary>
     /// notify when an app selected (for inspecting)

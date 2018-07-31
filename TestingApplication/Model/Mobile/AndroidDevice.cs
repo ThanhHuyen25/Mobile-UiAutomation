@@ -17,15 +17,11 @@ namespace TestingApplication
         string serialNumber;
         string state;
         string description;
-        string ip;
-        string name;
-        public AndroidDevice() { }
-        public AndroidDevice(string serialNumber, string state, string ip, string name)
+
+        public AndroidDevice(string serialNumber, string state)
         {
             this.serialNumber = serialNumber;
             this.state = state;
-            this.ip = ip;
-            this.name = name;
         }
 
         public string SerialNumber
@@ -64,30 +60,6 @@ namespace TestingApplication
             set
             {
                 description = value;
-            }
-        }
-        public string Ip
-        {
-            get
-            {
-                return ip;
-            }
-
-            set
-            {
-                ip = value;
-            }
-        }
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-
-            set
-            {
-                name = value;
             }
         }
     }

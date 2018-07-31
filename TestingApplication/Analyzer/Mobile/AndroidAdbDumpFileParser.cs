@@ -41,12 +41,12 @@ namespace TestingApplication
 
             if (node.HasChildNodes)
             {
-                for (int i = 0; i < node.ChildNodes.Count; i++)
+                for (int i= 0; i < node.ChildNodes.Count; i++)
                 {
                     IElement children = Convert(node.ChildNodes[i], re);
                     re.Children.Add(children);
                 }
-            }
+            }   
             return re;
         }
 
@@ -93,17 +93,16 @@ namespace TestingApplication
             }
         }
 
-        //
+        //**
         // set properties
         //
         private void setProperties(IElement element, XmlNode node)
         {
             if (node.Attributes != null)
             {
-                //element.Attributes.Na = node.Attributes["text"].Value;
                 element.Attributes.Index = Int32.Parse(node.Attributes["index"].Value);
                 element.Attributes.Text = node.Attributes["text"].Value;
-                element.Attributes.ClassName = node.Attributes["class"].Value;
+                //element.Attributes.ClassName = node.Attributes["class"].Value;
                 element.Attributes.Package = node.Attributes["package"].Value;
                 element.Attributes.ContentDesc = node.Attributes["content-desc"].Value;
                 element.Attributes.Checkable = node.Attributes["checkable"].Value.Equals(true);
