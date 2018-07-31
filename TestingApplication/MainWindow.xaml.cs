@@ -993,7 +993,7 @@ namespace TestingApplication
             ResetAll();
             ProcessWithInstanceProcess(app.Process);
         }
-        //callblack
+        //callback
         public void SelectedDeviceCallBack(List<IElement> elements)
         {
              elementsTreeView.ItemsSource = elements;
