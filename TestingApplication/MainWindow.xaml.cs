@@ -23,6 +23,7 @@ using System.Threading;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using TestingApplication.Windows;
+using System.Xml;
 
 namespace TestingApplication
 {
@@ -995,7 +996,17 @@ namespace TestingApplication
         //callblack
         public void SelectedDeviceCallBack(List<IElement> elements)
         {
-            elementsTreeView.ItemsSource = elements;
+             elementsTreeView.ItemsSource = elements;
+            BuildingTreeView buildingTreeView = new BuildingTreeView();
+            ObservableCollection<ElementItemVisual> listRoot = buildingTreeView.PutAdapter(elements);
+            if (listRoot != null && listRoot.Count > 0)
+            {
+                listRoot[0].IsExpanded = true;
+                listRoot[0].IsSelected = true;
+            }
+            elementsTreeView.ItemsSource = listRoot;
+            EnableUIElements();
+
         }
 
         #region progress dialog show callback
