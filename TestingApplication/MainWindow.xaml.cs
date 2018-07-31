@@ -81,6 +81,7 @@ namespace TestingApplication
             // enable this when release product
             Release();
             MyInit();
+
             //List<IElement> elements = new AndroidAdbDumpFileParser().Parse("C:/ProgramData/window_dump.xml");
             //SelectedDeviceCallBack(elements);
             // for debugging
