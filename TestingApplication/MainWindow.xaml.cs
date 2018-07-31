@@ -89,6 +89,7 @@ namespace TestingApplication
             //TestingMultipleScreens();
         }
 
+
         private void MyInit()
         {
             // set location for popup dialog
