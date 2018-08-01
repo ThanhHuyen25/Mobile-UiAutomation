@@ -249,7 +249,9 @@
     <Compile Include="Windows\AppSelection.xaml.cs">
       <DependentUpon>AppSelection.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\ChoiceWindow.xaml.cs" />
+    <Compile Include="Windows\ChoiceWindow.xaml.cs">
+		<DependentUpon>ChoiceWindow.xaml</DependentUpon>
+	</Compile>
     <Compile Include="Windows\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
@@ -260,7 +262,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Windows\SelectDevice.xaml.cs" />
+    <Compile Include="Windows\SelectDevice.xaml.cs">
+		<DependentUpon>SelectDevice.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
