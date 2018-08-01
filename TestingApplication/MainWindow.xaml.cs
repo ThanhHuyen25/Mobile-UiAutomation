@@ -996,7 +996,8 @@ namespace TestingApplication
         //callback
         public void SelectedDeviceCallBack(List<IElement> elements)
         {
-             elementsTreeView.ItemsSource = elements;
+            //elementsTreeView.ItemsSource = elements;
+            RuntimeInstance.listRootElement = elements;
             BuildingTreeView buildingTreeView = new BuildingTreeView();
             ObservableCollection<ElementItemVisual> listRoot = buildingTreeView.PutAdapter(elements);
             if (listRoot != null && listRoot.Count > 0)
