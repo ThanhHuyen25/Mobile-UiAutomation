@@ -215,5 +215,106 @@ namespace GUI_Testing_Automation
             set { rectBounding = value; }
         }
         private Rect rectBounding;
+
+        //
+        //set properties for mobile
+        //
+        private int index;
+        public int Index
+        {
+            get { return index; }
+            set { index = value; }
+        }
+
+        private string text;
+        public string Text
+        {
+            get { return text; }
+            set { text = value; }
+        }
+
+        private string package;
+        public string Package
+        {
+            get { return package; }
+            set { package = value; }
+        }
+
+        private string contentDesc;
+        public string ContentDesc
+        {
+            get { return contentDesc; }
+            set { contentDesc = value; }
+        }
+
+        private bool checkable;
+        public bool Checkable
+        {
+            get { return checkable; }
+            set { checkable = value; }
+        }
+
+        private bool isChecked;
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set { isChecked = value; }
+        }
+
+        private bool clickable;
+        public bool Clickable
+        {
+            get { return clickable; }
+            set { clickable = value; }
+        }
+
+        private bool enabled;
+        public bool Enabled
+        {
+            get { return enabled; }
+            set { enabled = value; }
+        }
+
+        private bool focusable;
+        public bool Focusable
+        {
+            get { return focusable; }
+            set { focusable = value; }
+        }
+
+        private bool focused;
+        public bool Focused
+        {
+            get { return focused; }
+            set { focused = value; }
+        }
+
+        private bool scrollable;
+        public bool Scrollable
+        {
+            get { return scrollable; }
+            set { scrollable = value; }
+        }
+
+        private bool long_clickable;
+        public bool LongClickable
+        {
+            get { return long_clickable; }
+            set { long_clickable = value; }
+        }
+
+        private bool password;
+        public bool Password
+        {
+            get { return password; }
+            set { password = value; }
+        }
+
+        private bool selected;
+        public bool Selected
+        {
+            get { return selected; }
+            set { selected = value; }
+        }
     }
 }
