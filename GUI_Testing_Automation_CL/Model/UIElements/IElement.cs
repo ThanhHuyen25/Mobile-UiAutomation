@@ -316,5 +316,19 @@ namespace GUI_Testing_Automation
             get { return selected; }
             set { selected = value; }
         }
+
+        private string resourceId;
+        public string ResourceId
+        {
+            get { return resourceId; }
+            set { resourceId = value; }
+        }
+
+        private string xpath;
+        public string Xpath
+        {
+            get { return xpath; }
+            set { xpath = value; }
+        }
     }
 }

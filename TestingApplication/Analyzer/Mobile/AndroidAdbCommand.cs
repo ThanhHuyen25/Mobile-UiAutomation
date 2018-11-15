@@ -60,7 +60,7 @@ namespace TestingApplication
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.FileName = "adb";
-            p.StartInfo.Arguments = "-s " + device.Ip + " shell uiautomator dump";
+            p.StartInfo.Arguments = "-s " + device.Ip + " shell uiautomator dump -a";
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.CreateNoWindow = true; //an man hinh

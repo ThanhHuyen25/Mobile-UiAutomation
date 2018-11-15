@@ -102,7 +102,7 @@ namespace TestingApplication
             {
                 element.Attributes.Index = Int32.Parse(node.Attributes["index"].Value);
                 element.Attributes.Text = node.Attributes["text"].Value;
-                //element.Attributes.ClassName = node.Attributes["class"].Value;
+                element.Attributes.ClassName = node.Attributes["class"].Value;
                 element.Attributes.Package = node.Attributes["package"].Value;
                 element.Attributes.ContentDesc = node.Attributes["content-desc"].Value;
                 element.Attributes.Checkable = node.Attributes["checkable"].Value.Equals(true);
@@ -115,11 +115,25 @@ namespace TestingApplication
                 element.Attributes.LongClickable = node.Attributes["long-clickable"].Value.Equals(true);
                 element.Attributes.Password = node.Attributes["password"].Value.Equals(true);
                 element.Attributes.Selected = node.Attributes["selected"].Value.Equals(true);
+                element.Attributes.ResourceId = node.Attributes["resource-id"].Value;
                 //element.Attributes.RectBounding = node.Attributes["content-desc"].Value;
             }
             else element.Attributes = null;
-
         }
 
+        private String getElementXpath(IElement element)
+        {
+            string xpath;
+            IElement temp;
+            xpath = "/" + element.Attributes.ClassName + "[@index='" + element.Attributes.Index.ToString() + "']";
+            temp = element.Parent;
+            while (temp != null)
+            {
+                xpath = "/" + temp.Attributes.ClassName + "[@index='" + temp.Attributes.Index.ToString() + "']" + xpath;
+                temp = temp.Parent;
+            }
+            xpath = "/"+ xpath;
+            return xpath;
+        }
     }
 }
