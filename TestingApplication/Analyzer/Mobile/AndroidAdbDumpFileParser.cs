@@ -209,6 +209,7 @@ namespace TestingApplication
         private Rect HandleNodeBound(string boundToString)
         {
             char[] array = boundToString.ToCharArray();
+            // change string -> bound
             for (int i=0; i<boundToString.Length; i++)
             {
                 if (array[i] == ']' && array[i+1] == '[')
@@ -220,7 +221,12 @@ namespace TestingApplication
                 array[boundToString.Length - 1] = ' ';
             }
             string bound = new string(array);
-            Rect rect = Rect.Parse(bound);
+            Rect tmp = Rect.Parse(bound);
+            Rect rect = new Rect();
+            rect.Width = tmp.Width - tmp.X;
+            rect.Height = tmp.Height - tmp.Y;
+            rect.X = tmp.X;
+            rect.Y = tmp.Y;
             return rect;
         }
     }
