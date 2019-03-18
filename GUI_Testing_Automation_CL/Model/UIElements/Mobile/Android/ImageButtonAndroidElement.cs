@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_Testing_Automation
 {
-    class ImageButtonAndroidElement
+    public class ImageButtonAndroidElement:ElementBase
     {
     }
 }

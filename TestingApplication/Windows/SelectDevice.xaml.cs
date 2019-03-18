@@ -74,6 +74,7 @@ namespace TestingApplication
             AndroidAdbCommand AdbCommand = new AndroidAdbCommand();
             List<AndroidDevice> Devices = new List<AndroidDevice>();
             Devices = AdbCommand.GetAllDevices();
+
             for (int i=0; i<listView.Items.Count;i++)
             {
                 string name = listView.SelectedItems[i].ToString();
@@ -99,7 +100,7 @@ namespace TestingApplication
                                 
                             }
                             break;
-                        }
+                            }
                     }
                     
                     break;

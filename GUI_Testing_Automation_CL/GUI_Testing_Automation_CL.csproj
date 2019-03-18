@@ -179,6 +179,7 @@
     <Compile Include="Template\AbstractTestRun.cs" />
     <Compile Include="Template\ITestModule.cs" />
     <Compile Include="Template\ITestRun.cs" />
+    <Compile Include="Utilities\CaptureAndroidElement.cs" />
     <Compile Include="Utilities\CaptureElement.cs" />
     <Compile Include="Utilities\Comparison.cs" />
     <Compile Include="Utilities\Handler.cs" />

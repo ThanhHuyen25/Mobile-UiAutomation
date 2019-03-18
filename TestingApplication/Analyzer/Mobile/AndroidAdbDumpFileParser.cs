@@ -2,11 +2,15 @@
 // author @duongtd
 // created on 10:09 AM 2018/7/3
 using GUI_Testing_Automation;
+using GUI_Testing_Automation.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Automation;
 using System.Xml;
 
 namespace TestingApplication
@@ -32,7 +36,7 @@ namespace TestingApplication
             // handle type of element
             IElement re = new FrameLayout();
             re.Parent = parent;
-
+            
             // get element name
             getElementName(node, re);
 
@@ -46,10 +50,43 @@ namespace TestingApplication
                     IElement children = Convert(node.ChildNodes[i], re);
                     re.Children.Add(children);
                 }
-            }   
+                // reset type
+                
+            }
+            setTypeforRE(re);
             return re;
         }
-
+        //
+        // set re type
+        //
+        private void setTypeforRE(IElement re)
+        {
+            if (re.Attributes.Name == "FrameLayout") {
+                re = new FrameLayout();
+            }
+            else if (re.Attributes.Name == "Button"){
+                re = new ButtonAndroidElement();
+            }
+            else if (re.Attributes.Name == "RelativeLayout"){
+                re = new LayoutAndroidElement();
+            }
+            else if (re.Attributes.Name == "View"){
+                re = new ViewAndroidElement();
+            }
+            else if (re.Attributes.Name == "TextView") {
+                re = new TextViewAndroidElement();
+            }
+            else if (re.Attributes.Name == "AppWidgetHostView") { 
+           
+            }
+            else if (re.Attributes.Name == "ImageView") {
+                re = new ImageViewAndroidElement();
+            }
+            else if (re.Attributes.Name == "ListView")
+            {
+                re = new ListViewAndroidElement();
+            }
+        }
         //
         // get element.name
         //
@@ -67,9 +104,25 @@ namespace TestingApplication
             {
                 element.Attributes.Name = "RelativeLayout";
             }
+            else if (node.Attributes["class"].Value.EndsWith("ListView"))
+            {
+                element.Attributes.Name = "ListView";
+            }
+            else if (node.Attributes["class"].Value.EndsWith("ScrollView"))
+            {
+                element.Attributes.Name = "ScrollView";
+            }
             else if (node.Attributes["class"].Value.EndsWith("View"))
             {
                 element.Attributes.Name = "View";
+            }
+            else if (node.Attributes["class"].Value.EndsWith("ViewPager"))
+            {
+                element.Attributes.Name = "ViewPager";
+            }
+            else if (node.Attributes["class"].Value.EndsWith("ViewSwitcher"))
+            {
+                element.Attributes.Name = "ViewSwitcher";
             }
             else if (node.Attributes["class"].Value.EndsWith("TextView"))
             {
@@ -87,9 +140,17 @@ namespace TestingApplication
             {
                 element.Attributes.Name = "Image";
             }
+            else if (node.Attributes["class"].Value.EndsWith("ImageButton"))
+            {
+                element.Attributes.Name = "ImageButton";
+            }
             else if (node.Attributes["class"].Value.EndsWith("Button"))
             {
                 element.Attributes.Name = "Button";
+            }
+            else if (node.Attributes["class"].Value.EndsWith("EditText"))
+            {
+                element.Attributes.Name = "EditText";
             }
         }
 
@@ -116,11 +177,20 @@ namespace TestingApplication
                 element.Attributes.Password = node.Attributes["password"].Value.Equals(true);
                 element.Attributes.Selected = node.Attributes["selected"].Value.Equals(true);
                 element.Attributes.ResourceId = node.Attributes["resource-id"].Value;
-                //element.Attributes.RectBounding = node.Attributes["content-desc"].Value;
+                element.Attributes.Xpath = getElementXpath(element);
+                ///string temp = node.Attributes["bounds"].Value;
+                element.Attributes.RectBounding = HandleNodeBound(node.Attributes["bounds"].Value);
+                var rectBound = element.Attributes.RectBounding;
+                Bitmap source = new Bitmap(@"C:/ProgramData/screen.png");
+                string strEncoded = CaptureAndroidElement.CaptureElement(source,rectBound);
+                element.Attributes.ImageCaptureEncoded = strEncoded;
             }
             else element.Attributes = null;
         }
 
+        //
+        // get xpath
+        //
         private String getElementXpath(IElement element)
         {
             string xpath;
@@ -134,6 +204,24 @@ namespace TestingApplication
             }
             xpath = "/"+ xpath;
             return xpath;
+        }
+
+        private Rect HandleNodeBound(string boundToString)
+        {
+            char[] array = boundToString.ToCharArray();
+            for (int i=0; i<boundToString.Length; i++)
+            {
+                if (array[i] == ']' && array[i+1] == '[')
+                {
+                    array[i] = ',';
+                    array[i + 1] = ' ';
+                }
+                array[0] = ' ';
+                array[boundToString.Length - 1] = ' ';
+            }
+            string bound = new string(array);
+            Rect rect = Rect.Parse(bound);
+            return rect;
         }
     }
 }

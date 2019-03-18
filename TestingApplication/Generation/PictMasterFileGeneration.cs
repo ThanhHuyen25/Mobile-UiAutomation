@@ -26,8 +26,8 @@ namespace TestingApplication
             // create a temp file
             string tempFilePath = Path.Combine(Path.GetTempPath(), GENERATED_FILE_NAME + "_" + DateTime.Now.ToString("yyMMdd-HHmmss"));
             File.Copy(
-                //@"Resources\PictMaster-Template"
-                @"D:\Research\projects\GUI-Testing-Automation\TestingApplication\Resources\PictMaster-Template.xls"
+                @"..\..\Resources\PictMaster-Template.xls"
+                //@"D:\Research\projects\GUI-Testing-Automation\TestingApplication\Resources\PictMaster-Template.xls"
                 , tempFilePath);
 
             Application excel = new Application();

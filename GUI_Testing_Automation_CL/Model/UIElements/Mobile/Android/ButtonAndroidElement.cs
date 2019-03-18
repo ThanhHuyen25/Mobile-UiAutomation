@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUI_Testing_Automation
 {
-    class ButtonAndroidElement:ElementBase
+    public class ButtonAndroidElement:ElementBase
     {
         public ButtonAndroidElement(string id) : base(id) { }
         public ButtonAndroidElement()

@@ -27,10 +27,11 @@ namespace TestingApplication
             p.Start();
             string output1 = p.StandardOutput.ReadToEnd();
 
-            int l = output1.Length;
-            while ((i + 2) < output1.Length)
+            int l = output1.Length - 1;
+            while ((i + 2) <l)
             {
-                string test = output1.Substring(i, 19);
+
+                string test = output1.Substring(i, 20);
                 AndroidDevice android = new AndroidDevice();
                 android.Ip = test;
                 p.StartInfo.Arguments = "-s" + test + " shell getprop ro.product.model";
@@ -84,6 +85,7 @@ namespace TestingApplication
                 p.StartInfo.RedirectStandardError = true;
                 p.Start();
                 string output = p.StandardOutput.ReadToEnd();
+                getImage();
                 return "C:/ProgramData/window_dump.xml";
 
             }
@@ -91,6 +93,19 @@ namespace TestingApplication
 
             // send command "adb dump" to $device
             throw new NotImplementedException();
+        }
+        public void getImage()
+        {
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.FileName = "adb";
+            p.StartInfo.Arguments = "adb shell screencap -p /sdcard/screen.png";
+            p.StartInfo.Arguments = "adb pull /sdcard/screen.png C:/ProgramData/screen.png";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true;
+            p.Start();
+         
         }
     }
 }

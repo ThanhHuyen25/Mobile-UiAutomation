@@ -14,7 +14,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="Ok" Content="Button" HorizontalAlignment="Left" Margin="675,357,0,0" VerticalAlignment="Top" Width="75" Height="32" Click="Ok_Click"/>
+        <Button x:Name="Ok" Content="OK" HorizontalAlignment="Left" Margin="675,357,0,0" VerticalAlignment="Top" Width="75" Height="32" Click="Ok_Click"/>
 
     </Grid>
 </Window>

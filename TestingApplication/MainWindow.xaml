@@ -329,7 +329,7 @@
                             <Border BorderThickness="0,0,0,1" BorderBrush="{StaticResource line_color}">
                                 <TextBlock FontSize="15" HorizontalAlignment="Center">Element screenshot</TextBlock>
                             </Border>
-                            <Image x:Name="imgCapture" HorizontalAlignment="Left" Margin="27,13,0,0" VerticalAlignment="Top" Stretch="None"/>
+                            <Image x:Name="imgCapture"  HorizontalAlignment="Center" Margin="27,13,0,0" VerticalAlignment="Top" Stretch="None"/>
                         </StackPanel>
                         <TextBlock x:Name="noImage" Text="" Foreground="Red" FontSize="30" VerticalAlignment="Center"
                              HorizontalAlignment="Center"></TextBlock>
@@ -354,61 +354,97 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Grid.Column="0">
                                         <Label Name="tb_key_Id" Content="Id" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_DesignedId" Content="DesignedId" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Index" Content="Index" BorderThickness="0"></Label>
+                                        <!--<Label Name="tb_key_DesignedId" Content="DesignedId" BorderThickness="0"></Label>
                                         <Label Name="tb_key_DesignedName" Content="DesignedName" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_ElementType" Content="DesignedType" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ElementType" Content="DesignedType" BorderThickness="0"></Label>-->
                                         <Label Name="tb_key_Parent" Content="Parent"></Label>
                                         <Label Name="tb_key_Children" Content="Children" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_ElementPath" Content="ElementPath" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_ImageCaptureEncoded" Content="ImageCaptureEncoded" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_AcceleratorKey" Content="AcceleratorKey" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_AccessKey" Content="AccessKey" BorderThickness="0"></Label>
+                                        <!--<Label Name="tb_key_ElementPath" Content="ElementPath" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_key_ImageCaptureEncoded" Content="ImageCaptureEncoded" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_key_AcceleratorKey" Content="AcceleratorKey" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_AccessKey" Content="AccessKey" BorderThickness="0"></Label>-->
                                         <Label Name="tb_key_ClassName" Content="ClassName" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_FrameworkId" Content="FrameworkId" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Text" Content="Text" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Package" Content="Package" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ContentDesc" Content="ContentDesc" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Checkable" Content="Checkable" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsChecked" Content="IsChecked" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Clickable" Content="Clickable" BorderThickness="0"></Label>
+
+                                        <!--<Label Name="tb_key_FrameworkId" Content="FrameworkId" BorderThickness="0"></Label>
                                         <Label Name="tb_key_HasKeyboardFocus" Content="HasKeyboardFocus" BorderThickness="0"></Label>
                                         <Label Name="tb_key_HelpText" Content="HelpText" BorderThickness="0"></Label>
                                         <Label Name="tb_key_IsContentElement" Content="IsContentElement" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_IsControlElement" Content="IsControlElement" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_IsEnabled" Content="IsEnable" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_IsKeyboardFocusable" Content="IsKeyboardFocusable" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_IsOffscreen" Content="IsOffScreen" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_IsPassword" Content="IsPassword" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_IsRequiredForForm" Content="IsRequiredForForm" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_ItemStatus" Content="Item Status" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_ItemType" Content="ItemType" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_LocalizedControlType" Content="LocalizedControlType" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_Name" Content="Name" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsControlElement" Content="IsControlElement" BorderThickness="0"></Label>-->
+                                        <Label Name="tb_key_Enabled" Content="Enabled" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Focusable" Content="Focusable" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Focused" Content="Focused" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Scrollable" Content="Scrollable" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_LongClickable" Content="LongClickable" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Password" Content="Password" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Selected" Content="Selected" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ResourceId" Content="ResourceId" BorderThickness="0"></Label>
+                                        <!--<Label Name="tb_key_IsKeyboardFocusable" Content="IsKeyboardFocusable" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_key_IsOffscreen" Content="IsOffScreen" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_IsPassword" Content="IsPassword" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_key_IsRequiredForForm" Content="IsRequiredForForm" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_key_ItemStatus" Content="Item Status" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ItemType" Content="ItemType" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_key_LocalizedControlType" Content="LocalizedControlType" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_key_Name" Content="Name" BorderThickness="0"></Label>
                                         <Label Name="tb_key_NativeWindowHandle" Content="NativeWindowHandle" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_ProcessId" Content="ProcessId" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_ProcessId" Content="ProcessId" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_key_ResourceId" Content="ResourceId" BorderThickness="0"></Label>-->
+                                        <Label Name="tb_key_Bound" Content="Bound" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Xpath" Content="Xpath" BorderThickness="0"></Label>
                                     </StackPanel>
                                     <StackPanel Grid.Column="1">
                                         <Label Name="tb_value_Id" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_DesignedId" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Index" Content="" BorderThickness="0"></Label>
+                                        <!--<Label Name="tb_value_DesignedId" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_DesignedName" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_ElementType" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ElementType" Content="" BorderThickness="0"></Label>-->
                                         <Label Name="tb_value_Parent" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_Children" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_ElementPath" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_ImageCaptureEncoded" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_Acceleratorvalue" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_Accessvalue" Content="" BorderThickness="0"></Label>
+                                        <!--<Label Name="tb_value_ElementPath" Content="6" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_value_ImageCaptureEncoded" Content="" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_value_Acceleratorvalue" Content="8" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Accessvalue" Content="" BorderThickness="0"></Label>-->
                                         <Label Name="tb_value_ClassName" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_FrameworkId" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Text" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Package" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ContentDesc" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Checkable" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsChecked" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Clickable" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Enabled" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Focusable" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Focused" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Scrollable" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_LongClickable" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Password" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Selected" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ResourceId" Content="" BorderThickness="0"></Label>
+                                        <!--<Label Name="tb_value_FrameworkId" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_HasvalueboardFocus" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_HelpText" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_IsContentElement" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_IsControlElement" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_IsEnabled" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsControlElement" Content="" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_value_IsEnabled" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_IsvalueboardFocusable" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_IsOffscreen" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_IsPassword" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_IsRequiredForForm" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_IsPassword" Content="" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_value_IsRequiredForForm" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_ItemStatus" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_ItemType" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_LocalizedControlType" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_Name" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_NativeWindowHandle" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_ProcessId" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ItemType" Content="" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_value_LocalizedControlType" Content="1" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Name" Content="" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_value_NativeWindowHandle" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_ProcessId" Content="" BorderThickness="0"></Label>-->
+                                        <!--<Label Name="tb_value_ResourceId" Content="" BorderThickness="0"></Label>-->
+                                        <Label Name="tb_value_Bound" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Xpath" Content="" BorderThickness="0"></Label>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

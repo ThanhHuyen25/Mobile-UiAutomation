@@ -748,33 +748,52 @@ namespace TestingApplication
         {
             tb_value_Parent.Content = element.Parent == null ? "" : element.Parent.ToString();
             // tb_value_AcceleratorKey.Text = element.AcceleratorKey;
-            tb_value_DesignedId.Content = element.Attributes.DesignedId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_DesignedId.Content = element.Attributes.DesignedId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
             tb_value_Children.Content = element.Children == null ? "" : element.Children.ToString();
-            tb_value_ElementPath.Content = element.Attributes.ElementPath == null ? "" : element.Attributes.ElementPath.ToString();
-            // tb_value_ImageCaptureEncoded.Text = element.ImageCaptureEncoded;
-            tb_value_Acceleratorvalue.Content = element.Attributes.AcceleratorKey ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_Accessvalue.Content = element.Attributes.AccessKey ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_ElementPath.Content = element.Attributes.ElementPath == null ? "" : element.Attributes.ElementPath.ToString();
+            //tb_value_ImageCaptureEncoded.Text = element.ImageCaptureEncoded;
+            //tb_value_Acceleratorvalue.Content = element.Attributes.AcceleratorKey ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_Accessvalue.Content = element.Attributes.AccessKey ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
             tb_value_ClassName.Content = element.Attributes.ClassName ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_FrameworkId.Content = element.Attributes.FrameworkId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_HasvalueboardFocus.Content = element.Attributes.HasKeyboardFocus == true ? "true" : "fasle";
-            tb_value_HelpText.Content = element.Attributes.HelpText ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_IsContentElement.Content = element.Attributes.IsContentElement == true ? "true" : "false";
-            tb_value_IsControlElement.Content = element.Attributes.IsControlElement == true ? "true" : "false";
-            tb_value_IsEnabled.Content = element.Attributes.IsEnabled == true ? "true" : "false";
-            tb_value_IsvalueboardFocusable.Content = element.Attributes.IsKeyboardFocusable == true ? "true" : "false";
-            tb_value_IsOffscreen.Content = element.Attributes.IsOffscreen == true ? "true" : "false";
-            tb_value_IsPassword.Content = element.Attributes.IsPassword == true ? "true" : "false";
-            tb_value_IsRequiredForForm.Content = element.Attributes.IsRequiredForForm == true ? "true" : "fasle";
-            tb_value_ItemStatus.Content = element.Attributes.ItemStatus ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_ItemType.Content = element.Attributes.ItemType ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_LocalizedControlType.Content = element.Attributes.LocalizedControlType;
-            tb_value_Name.Content = element.Attributes.Name ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_NativeWindowHandle.Content = element.Attributes.NativeWindowHandle.ToString();
-            tb_value_ProcessId.Content = element.Attributes.ProcessId.ToString();
-            tb_value_Id.Content = element.Id ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_DesignedId.Content = element.Attributes.DesignedId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_DesignedName.Content = element.Attributes.DesignedName ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_ElementType.Content = element.Attributes.ElementType ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            tb_value_Index.Content = element.Attributes.Index;
+            tb_value_Text.Content = element.Attributes.Text ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            tb_value_Package.Content = element.Attributes.Package ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            tb_value_ContentDesc.Content = element.Attributes.ContentDesc ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            tb_value_Clickable.Content = element.Attributes.Clickable == true ? "true" : "false";
+            tb_value_Checkable.Content = element.Attributes.Checkable == true ? "true" : "false";
+            tb_value_IsChecked.Content = element.Attributes.IsChecked == true ? "true" : "false";
+            tb_value_Enabled.Content = element.Attributes.Enabled == true ? "true" : "false";
+            tb_value_Focusable.Content = element.Attributes.Focusable == true ? "true" : "false";
+            tb_value_Focused.Content = element.Attributes.Focused == true ? "true" : "false";
+            tb_value_Scrollable.Content = element.Attributes.Scrollable == true ? "true" : "false";
+            tb_value_LongClickable.Content = element.Attributes.LongClickable == true ? "true" : "false";
+            tb_value_Password.Content = element.Attributes.Password == true ? "true" : "false";
+            tb_value_Selected.Content = element.Attributes.Selected == true ? "true" : "false";
+            tb_value_ResourceId.Content = element.Attributes.ResourceId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_FrameworkId.Content = element.Attributes.FrameworkId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_HasvalueboardFocus.Content = element.Attributes.HasKeyboardFocus == true ? "true" : "fasle";
+            //tb_value_HelpText.Content = element.Attributes.HelpText ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_IsContentElement.Content = element.Attributes.IsContentElement == true ? "true" : "false";
+            //tb_value_IsControlElement.Content = element.Attributes.IsControlElement == true ? "true" : "false";
+            //tb_value_isenabled.content = element.attributes.isenabled == true ? "true" : "false";
+            //tb_value_isvalueboardfocusable.content = element.attributes.iskeyboardfocusable == true ? "true" : "false";
+            //tb_value_isoffscreen.content = element.attributes.isoffscreen == true ? "true" : "false";
+            //tb_value_ispassword.content = element.attributes.ispassword == true ? "true" : "false";
+            //tb_value_isrequiredforform.content = element.attributes.isrequiredforform == true ? "true" : "fasle";
+            //tb_value_itemstatus.content = element.attributes.itemstatus ?? default_null_element_attribute;
+            //tb_value_itemtype.content = element.attributes.itemtype ?? default_null_element_attribute;
+            //tb_value_localizedcontroltype.content = element.attributes.localizedcontroltype;
+            //tb_value_name.content = element.attributes.name ?? default_null_element_attribute;
+            //tb_value_nativewindowhandle.content = element.attributes.nativewindowhandle.tostring();
+            //tb_value_processid.content = element.attributes.processid.tostring();
+            tb_value_Id.Content = element.Attributes.ResourceId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_DesignedId.Content = element.Attributes.DesignedId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_DesignedName.Content = element.Attributes.DesignedName ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_ElementType.Content = element.Attributes.ElementType ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_ResourceId.Content = element.Attributes.ResourceId;
+            tb_value_Bound.Content = element.Attributes.RectBounding;
+            tb_value_Xpath.Content = element.Attributes.Xpath;
+            
         }
 
         /// <summary>
@@ -815,6 +834,14 @@ namespace TestingApplication
                 imgCapture.Source = null;
             }
         }
+        // 
+        // Show image
+        //
+        private void ShowImage(IElement element)
+        {
+            
+        }
+
 
         private void ShowBuildingWindowsLog(LogProcess logOut)
         {
@@ -1341,4 +1368,6 @@ namespace TestingApplication
     {
         Normal, Ranorex
     }
+
+    
 }

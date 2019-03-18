@@ -330,5 +330,17 @@ namespace GUI_Testing_Automation
             get { return xpath; }
             set { xpath = value; }
         }
+        private string screenPath;
+        public string ScreenPath
+        {
+            get { return screenPath; }
+            set { screenPath = value; }
+        }
+        private string boundToString;
+        public string BoundToString
+        {
+            get { return boundToString; }
+            set { boundToString = value; }
+        }
     }
 }
