@@ -107,12 +107,20 @@ namespace TestingApplication
                     icon = "Row_24x";
                 else if (element is GroupELement)
                     icon = "Group_16x";
-                else if (element is LinkElement)
+                else if (element is LinkElement)    
                     icon = "Link_16x";
                 else if (element is SeparatorElement)
                     icon = "Separator_16x";
                 else if (element is ToolBarElement)
                     icon = "BarSeries_16x";
+                else if (element.Attributes.Name == "FrameLayout" || element.Attributes.Name == "RelativeLayout" || element.Attributes.Name == "LinearLayout")
+                    icon = "WindowsForm_16x";
+                else if (element.Attributes.Name == "TextView")
+                    icon = "Text_16x";
+                else if (element.Attributes.Name == "EditText")
+                    icon = "TextBox_16x";
+                else if (element.Attributes.Name == "Button")
+                    icon = "Button_16x";
                 return "Resources/treeview_icons/" + icon.ToLower() + ".png";
             }
         }

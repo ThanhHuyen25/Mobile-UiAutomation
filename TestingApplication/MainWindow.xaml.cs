@@ -834,13 +834,6 @@ namespace TestingApplication
                 imgCapture.Source = null;
             }
         }
-        // 
-        // Show image
-        //
-        private void ShowImage(IElement element)
-        {
-            
-        }
 
 
         private void ShowBuildingWindowsLog(LogProcess logOut)

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Automation;
@@ -181,6 +182,7 @@ namespace TestingApplication
                 ///string temp = node.Attributes["bounds"].Value;
                 element.Attributes.RectBounding = HandleNodeBound(node.Attributes["bounds"].Value);
                 var rectBound = element.Attributes.RectBounding;
+                // Thread.Sleep(1000);
                 Bitmap source = new Bitmap(@"C:/ProgramData/screen.png");
                 string strEncoded = CaptureAndroidElement.CaptureElement(source,rectBound);
                 element.Attributes.ImageCaptureEncoded = strEncoded;

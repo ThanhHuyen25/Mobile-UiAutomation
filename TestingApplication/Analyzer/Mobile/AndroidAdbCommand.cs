@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TestingApplication
@@ -44,7 +45,7 @@ namespace TestingApplication
                 output = output.Replace("\n", "");
                 android.Name = output;
                 Devices.Add(android);
-                i = i + 28;
+                i = i + 28 + 1;
 
             }
             //throw new NotImplementedException();
@@ -84,28 +85,34 @@ namespace TestingApplication
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
                 p.Start();
-                string output = p.StandardOutput.ReadToEnd();
-                getImage();
+                //string output = p.StandardOutput.ReadToEnd();
+               
+                p.StartInfo.Arguments = "-s " + device.Ip + " shell screencap -p /sdcard/screen.png";
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
+                Thread.Sleep(1000);
+                p.StartInfo.Arguments = "-s " + device.Ip + " pull /sdcard/screen.png C:/ProgramData/screen.png";
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true;
+                p.Start();
+                Thread.Sleep(1000);
+
                 return "C:/ProgramData/window_dump.xml";
 
             }
 
-
             // send command "adb dump" to $device
             throw new NotImplementedException();
         }
-        public void getImage()
-        {
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.FileName = "adb";
-            p.StartInfo.Arguments = "adb shell screencap -p /sdcard/screen.png";
-            p.StartInfo.Arguments = "adb pull /sdcard/screen.png C:/ProgramData/screen.png";
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.CreateNoWindow = true;
-            p.Start();
+        //public void getImage()
+        //{
+        //    System.Diagnostics.Process p = new System.Diagnostics.Process();
+        //    p.StartInfo.UseShellExecute = false;
+            
          
-        }
+        //}
     }
 }
