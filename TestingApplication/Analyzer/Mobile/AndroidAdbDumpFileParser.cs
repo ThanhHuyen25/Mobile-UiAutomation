@@ -38,12 +38,11 @@ namespace TestingApplication
             IElement re = new FrameLayout();
             re.Parent = parent;
             
-            
-            // set attributes
-            setProperties(re, node);
-
             // get element name
             getElementName(node, re);
+
+            // set attributes
+            setProperties(re, node);
 
             if (node.HasChildNodes)
             {
@@ -55,116 +54,104 @@ namespace TestingApplication
                 // reset type
                 
             }
-            //setTypeforRE(re);
+            setTypeforRE(re);
             return re;
         }
         //
         // set re type
         //
-        //private void setTypeforRE(IElement re)
-        //{
-        //    if (re.Attributes.Name.StartsWith("FrameLayout")) {
-        //        re = new FrameLayout();
-        //    }
-        //    else if (re.Attributes.Name.StartsWith("Button")) {
-        //        re = new ButtonAndroidElement();
-        //    }
-        //    else if (re.Attributes.Name.StartsWith("RelativeLayout")) {
-        //        re = new LayoutAndroidElement();
-        //    }
-        //    else if (re.Attributes.Name.StartsWith("View")) {
-        //        re = new ViewAndroidElement();
-        //    }
-        //    else if (re.Attributes.Name == "TextView") {
-        //        re = new TextViewAndroidElement();
-        //    }
-        //    else if (re.Attributes.Name == "AppWidgetHostView") { 
+        private void setTypeforRE(IElement re)
+        {
+            if (re.Attributes.Name == "FrameLayout") {
+                re = new FrameLayout();
+            }
+            else if (re.Attributes.Name == "Button"){
+                re = new ButtonAndroidElement();
+            }
+            else if (re.Attributes.Name == "RelativeLayout"){
+                re = new LayoutAndroidElement();
+            }
+            else if (re.Attributes.Name == "View"){
+                re = new ViewAndroidElement();
+            }
+            else if (re.Attributes.Name == "TextView") {
+                re = new TextViewAndroidElement();
+            }
+            else if (re.Attributes.Name == "AppWidgetHostView") { 
            
-        //    }
-        //    else if (re.Attributes.Name == "ImageView") {
-        //        re = new ImageViewAndroidElement();
-        //    }
-        //    else if (re.Attributes.Name == "ListView")
-        //    {
-        //        re = new ListViewAndroidElement();
-        //    }
-        //}
+            }
+            else if (re.Attributes.Name == "ImageView") {
+                re = new ImageViewAndroidElement();
+            }
+            else if (re.Attributes.Name == "ListView")
+            {
+                re = new ListViewAndroidElement();
+            }
+        }
         //
         // get element.name
         //
         private void getElementName(XmlNode node, IElement element)
         {
-            string tmp;
-            tmp = element.Attributes.ContentDesc;
-            if (tmp == "") {
-                string str = element.Attributes.ResourceId;
-                if (str == "")
-                    tmp = "layout";
-                else
-                {
-                    string[] arr = str.Split('/');
-                    tmp = arr[1];
-                }
-            }
             if (node.Attributes["class"].Value.EndsWith("LinearLayout"))
             {
-                element.Attributes.Name = "LinearLayout: " + tmp;
+                element.Attributes.Name = "LinearLayout";
             }
             else if (node.Attributes["class"].Value.EndsWith("FrameLayout"))
             {
-                element.Attributes.Name = "FrameLayout: " + tmp;
+                element.Attributes.Name = "FrameLayout";
             }
             else if (node.Attributes["class"].Value.EndsWith("RelativeLayout"))
             {
-                element.Attributes.Name = "RelativeLayout: " + tmp;
+                element.Attributes.Name = "RelativeLayout";
             }
             else if (node.Attributes["class"].Value.EndsWith("ListView"))
             {
-                element.Attributes.Name = "ListView: " + tmp;
+                element.Attributes.Name = "ListView";
             }
             else if (node.Attributes["class"].Value.EndsWith("ScrollView"))
             {
-                element.Attributes.Name = "ScrollView: " + tmp;
+                element.Attributes.Name = "ScrollView";
             }
             else if (node.Attributes["class"].Value.EndsWith("View"))
             {
-                element.Attributes.Name = "View: " + tmp;
+                element.Attributes.Name = "View";
             }
             else if (node.Attributes["class"].Value.EndsWith("ViewPager"))
             {
-                element.Attributes.Name = "ViewPager: " + tmp;
+                element.Attributes.Name = "ViewPager";
             }
             else if (node.Attributes["class"].Value.EndsWith("ViewSwitcher"))
             {
-                element.Attributes.Name = "ViewSwitcher: " + tmp;
+                element.Attributes.Name = "ViewSwitcher";
             }
             else if (node.Attributes["class"].Value.EndsWith("TextView"))
             {
-                element.Attributes.Name = "TextView: " + tmp;
+                element.Attributes.Name = "TextView";
             }
             else if (node.Attributes["class"].Value.EndsWith("AppWidgetHostView"))
             {
-                element.Attributes.Name = "AppWidgetHostView: " + tmp;
+                element.Attributes.Name = "AppWidgetHostView";
             }
             else if (node.Attributes["class"].Value.EndsWith("ImageView"))
             {
-                element.Attributes.Name = "ImageView: " + tmp;
+                element.Attributes.Name = "ImageView";
             }
             else if (node.Attributes["class"].Value.EndsWith("Image"))
             {
-                element.Attributes.Name = "Image: " + tmp;
+                element.Attributes.Name = "Image";
             }
             else if (node.Attributes["class"].Value.EndsWith("ImageButton"))
             {
-                element.Attributes.Name = "ImageButton: " + tmp;
+                element.Attributes.Name = "ImageButton";
             }
             else if (node.Attributes["class"].Value.EndsWith("Button"))
             {
-                element.Attributes.Name = "Button: " + tmp;
+                element.Attributes.Name = "Button";
             }
             else if (node.Attributes["class"].Value.EndsWith("EditText"))
             {
-                element.Attributes.Name = "EditText: " + tmp;
+                element.Attributes.Name = "EditText";
             }
         }
 
@@ -180,16 +167,16 @@ namespace TestingApplication
                 element.Attributes.ClassName = node.Attributes["class"].Value;
                 element.Attributes.Package = node.Attributes["package"].Value;
                 element.Attributes.ContentDesc = node.Attributes["content-desc"].Value;
-                element.Attributes.Checkable = bool.Parse(node.Attributes["checkable"].Value);
-                element.Attributes.IsChecked = bool.Parse(node.Attributes["checked"].Value);
-                element.Attributes.Clickable = bool.Parse(node.Attributes["clickable"].Value);
-                element.Attributes.Enabled = bool.Parse(node.Attributes["enabled"].Value);
-                element.Attributes.Focusable = bool.Parse(node.Attributes["focusable"].Value);
-                element.Attributes.Focused = bool.Parse(node.Attributes["focused"].Value);
-                element.Attributes.Scrollable = bool.Parse(node.Attributes["scrollable"].Value);
-                element.Attributes.LongClickable = bool.Parse(node.Attributes["long-clickable"].Value);
-                element.Attributes.Password = bool.Parse(node.Attributes["password"].Value);
-                element.Attributes.Selected = bool.Parse(node.Attributes["selected"].Value);
+                element.Attributes.Checkable = node.Attributes["checkable"].Value.Equals(true);
+                element.Attributes.IsChecked = node.Attributes["checked"].Value.Equals(true);
+                element.Attributes.Clickable = node.Attributes["clickable"].Value.Equals(true);
+                element.Attributes.Enabled = node.Attributes["enabled"].Value.Equals(true);
+                element.Attributes.Focusable = node.Attributes["focusable"].Value.Equals(true);
+                element.Attributes.Focused = node.Attributes["focused"].Value.Equals(true);
+                element.Attributes.Scrollable = node.Attributes["scrollable"].Value.Equals(true);
+                element.Attributes.LongClickable = node.Attributes["long-clickable"].Value.Equals(true);
+                element.Attributes.Password = node.Attributes["password"].Value.Equals(true);
+                element.Attributes.Selected = node.Attributes["selected"].Value.Equals(true);
                 element.Attributes.ResourceId = node.Attributes["resource-id"].Value;
                 element.Attributes.Xpath = getElementXpath(element);
                 ///string temp = node.Attributes["bounds"].Value;
