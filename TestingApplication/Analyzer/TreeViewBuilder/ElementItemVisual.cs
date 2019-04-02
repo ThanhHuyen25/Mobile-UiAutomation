@@ -113,14 +113,15 @@ namespace TestingApplication
                     icon = "Separator_16x";
                 else if (element is ToolBarElement)
                     icon = "BarSeries_16x";
-                else if (element.Attributes.Name == "FrameLayout" || element.Attributes.Name == "RelativeLayout" || element.Attributes.Name == "LinearLayout")
+                else if (element.Attributes.Name.StartsWith("FrameLayout") || element.Attributes.Name.StartsWith("RelativeLayout") || element.Attributes.Name.StartsWith("LinearLayout"))
                     icon = "WindowsForm_16x";
-                else if (element.Attributes.Name == "TextView")
+                else if (element.Attributes.Name.StartsWith("TextView"))
                     icon = "Text_16x";
-                else if (element.Attributes.Name == "EditText")
+                else if (element.Attributes.Name.StartsWith("EditText"))
                     icon = "TextBox_16x";
-                else if (element.Attributes.Name == "Button")
+                else if (element.Attributes.Name.StartsWith("Button"))
                     icon = "Button_16x";
+
                 return "Resources/treeview_icons/" + icon.ToLower() + ".png";
             }
         }
