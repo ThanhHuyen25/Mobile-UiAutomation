@@ -22,6 +22,7 @@ using Gma.System.MouseKeyHook;
 using System.Threading;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.IO.Compression;
 
 namespace TestingApplication
 {
@@ -331,7 +332,8 @@ namespace TestingApplication
 
         private void ExportProject_Click(object sender, RoutedEventArgs e)
         {
-            ExportProjectAction();
+           // ExportProjectAction();
+            ExportProject();
         }
 
         private void ImportRanorexRepoFile_Click(object sender, RoutedEventArgs e)
@@ -597,6 +599,36 @@ namespace TestingApplication
         {
             popupDialog.IsOpen = false;
         }
+
+        // Export project
+        private void ExportProject()
+        {
+            string extractPath = "";
+            FolderBrowserDialog folderDlg = new FolderBrowserDialog();
+            DialogResult result = folderDlg.ShowDialog();
+            
+            if (result.ToString().Equals("OK"))
+            {
+                extractPath = folderDlg.SelectedPath;
+                ProgressDialog export_project_progress = new ProgressDialog("ExportProject", "Exporting Project. Please wait!", this);
+                export_project_progress.Show();
+                Task.Factory.StartNew(new Action(() =>
+                {
+                    InitializeComponent();
+                    string filePath = "D:\\UIAutomation\\Mobile-UiAutomation\\TestingApplication\\FileZip\\MyApplication.zip";
+                    
+                    string nameProject = "MyApplication";
+                    string newNameProject = "AndroidProjectTest" + System.DateTime.Now.ToFileTime();
+                    ZipFile.ExtractToDirectory(filePath, extractPath);
+                    Directory.Move(extractPath + "\\" + nameProject, extractPath + "\\" + newNameProject);
+                }));
+                export_project_progress.Close();
+
+                string message = "Export Project Success!!!";
+                System.Windows.Forms.MessageBox.Show(message, "Message");
+            }
+        }
+
 
         private void ExportProjectAction()
         {
@@ -881,7 +913,8 @@ namespace TestingApplication
 
         void DoExportCodeCommand(object sender, ExecutedRoutedEventArgs e)
         {
-            ExportProjectAction();
+            //ExportProjectAction();
+            ExportProject();
         }
 
         void DoCloseCommand(object sender, ExecutedRoutedEventArgs e)

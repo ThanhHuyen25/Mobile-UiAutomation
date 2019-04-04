@@ -74,7 +74,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -250,8 +250,8 @@
       <DependentUpon>AppSelection.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ChoiceWindow.xaml.cs">
-		<DependentUpon>ChoiceWindow.xaml</DependentUpon>
-	</Compile>
+      <DependentUpon>ChoiceWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
@@ -263,7 +263,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Windows\SelectDevice.xaml.cs">
-		<DependentUpon>SelectDevice.xaml</DependentUpon>
+      <DependentUpon>SelectDevice.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

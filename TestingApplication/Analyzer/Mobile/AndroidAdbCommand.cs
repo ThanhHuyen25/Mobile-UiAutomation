@@ -103,7 +103,8 @@ namespace TestingApplication
                 return "C:/ProgramData/window_dump.xml";
 
             }
-
+            //Lấy activity của package
+            // adb shell "dumpsys window windows | grep -E mCurrentFocus"
             // send command "adb dump" to $device
             throw new NotImplementedException();
         }
