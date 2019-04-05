@@ -357,9 +357,9 @@
                                         <Label Name="tb_key_Index" Content="Index" BorderThickness="0"></Label>
                                         <!--<Label Name="tb_key_DesignedId" Content="DesignedId" BorderThickness="0"></Label>
                                         <Label Name="tb_key_DesignedName" Content="DesignedName" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_ElementType" Content="DesignedType" BorderThickness="0"></Label>-->
+                                        <Label Name="tb_key_ElementType" Content="DesignedType" BorderThickness="0"></Label>
                                         <Label Name="tb_key_Parent" Content="Parent"></Label>
-                                        <Label Name="tb_key_Children" Content="Children" BorderThickness="0"></Label>
+                                        <Label Name="tb_key_Children" Content="Children" BorderThickness="0"></Label>-->
                                         <!--<Label Name="tb_key_ElementPath" Content="ElementPath" BorderThickness="0"></Label>-->
                                         <!--<Label Name="tb_key_ImageCaptureEncoded" Content="ImageCaptureEncoded" BorderThickness="0"></Label>-->
                                         <!--<Label Name="tb_key_AcceleratorKey" Content="AcceleratorKey" BorderThickness="0"></Label>
@@ -384,7 +384,7 @@
                                         <Label Name="tb_key_LongClickable" Content="LongClickable" BorderThickness="0"></Label>
                                         <Label Name="tb_key_Password" Content="Password" BorderThickness="0"></Label>
                                         <Label Name="tb_key_Selected" Content="Selected" BorderThickness="0"></Label>
-                                        <Label Name="tb_key_ResourceId" Content="ResourceId" BorderThickness="0"></Label>
+                                        <!--<Label Name="tb_key_ResourceId" Content="ResourceId" BorderThickness="0"></Label>-->
                                         <!--<Label Name="tb_key_IsKeyboardFocusable" Content="IsKeyboardFocusable" BorderThickness="0"></Label>-->
                                         <!--<Label Name="tb_key_IsOffscreen" Content="IsOffScreen" BorderThickness="0"></Label>
                                         <Label Name="tb_key_IsPassword" Content="IsPassword" BorderThickness="0"></Label>-->
@@ -404,9 +404,9 @@
                                         <Label Name="tb_value_Index" Content="" BorderThickness="0"></Label>
                                         <!--<Label Name="tb_value_DesignedId" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_DesignedName" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_ElementType" Content="" BorderThickness="0"></Label>-->
+                                        <Label Name="tb_value_ElementType" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_Parent" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_Children" Content="" BorderThickness="0"></Label>
+                                        <Label Name="tb_value_Children" Content="" BorderThickness="0"></Label>-->
                                         <!--<Label Name="tb_value_ElementPath" Content="6" BorderThickness="0"></Label>-->
                                         <!--<Label Name="tb_value_ImageCaptureEncoded" Content="" BorderThickness="0"></Label>-->
                                         <!--<Label Name="tb_value_Acceleratorvalue" Content="8" BorderThickness="0"></Label>
@@ -425,7 +425,7 @@
                                         <Label Name="tb_value_LongClickable" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_Password" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_Selected" Content="" BorderThickness="0"></Label>
-                                        <Label Name="tb_value_ResourceId" Content="" BorderThickness="0"></Label>
+                                        <!--<Label Name="tb_value_ResourceId" Content="" BorderThickness="0"></Label>-->
                                         <!--<Label Name="tb_value_FrameworkId" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_HasvalueboardFocus" Content="" BorderThickness="0"></Label>
                                         <Label Name="tb_value_HelpText" Content="" BorderThickness="0"></Label>

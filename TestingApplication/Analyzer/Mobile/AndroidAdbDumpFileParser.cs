@@ -37,18 +37,17 @@ namespace TestingApplication
             // handle type of element
             IElement re = new FrameLayout();
             re.Parent = parent;
-            
-            // get element name
-            getElementName(node, re);
-
-            setTypeforRE(re);
-            re.Parent = parent;
-            getElementName(node, re);
 
             // set attributes
             setProperties(re, node);
 
+            // get element name
+            getElementName(node, re);
+            setTypeforRE(re);
 
+            re.Parent = parent;
+            setProperties(re, node);
+            getElementName(node, re);
             if (node.HasChildNodes)
             {
                 for (int i= 0; i < node.ChildNodes.Count; i++)
@@ -98,18 +97,20 @@ namespace TestingApplication
         //
         private void getElementName(XmlNode node, IElement element)
         {
-            string tmp = element.Attributes.ContentDesc;
-            if (tmp == null)
+            string tmp;
+            tmp = element.Attributes.ContentDesc;
+            if (tmp == "")
             {
-                if (element.Attributes.ResourceId == null)
+                string str = element.Attributes.ResourceId;
+                if (str == "")
                     tmp = "layout";
                 else
                 {
-                    string str = element.Attributes.ResourceId;
-                    string[] arrListStr = str.Split('/');
-                    tmp = arrListStr[1];
-                } 
+                    string[] arr = str.Split('/');
+                    tmp = arr[1];
+                }
             }
+
             if (node.Attributes["class"].Value.EndsWith("LinearLayout"))
             {
                 element.Attributes.Name = "LinearLayout:" + tmp;

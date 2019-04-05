@@ -778,10 +778,11 @@ namespace TestingApplication
         /// <param name="element"></param>
         private void ShowInfoProperties(IElement element)
         {
-            tb_value_Parent.Content = element.Parent == null ? "" : element.Parent.ToString();
+            
+            //tb_value_Parent.Content = element.Parent == null ? "" : element.Parent.ToString();
             // tb_value_AcceleratorKey.Text = element.AcceleratorKey;
             //tb_value_DesignedId.Content = element.Attributes.DesignedId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-            tb_value_Children.Content = element.Children == null ? "" : element.Children.ToString();
+           //tb_value_Children.Content = element.Children == null ? "" : element.Children.ToString();
             //tb_value_ElementPath.Content = element.Attributes.ElementPath == null ? "" : element.Attributes.ElementPath.ToString();
             //tb_value_ImageCaptureEncoded.Text = element.ImageCaptureEncoded;
             //tb_value_Acceleratorvalue.Content = element.Attributes.AcceleratorKey ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
@@ -801,7 +802,7 @@ namespace TestingApplication
             tb_value_LongClickable.Content = element.Attributes.LongClickable == true ? "true" : "false";
             tb_value_Password.Content = element.Attributes.Password == true ? "true" : "false";
             tb_value_Selected.Content = element.Attributes.Selected == true ? "true" : "false";
-            tb_value_ResourceId.Content = element.Attributes.ResourceId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            //tb_value_ResourceId.Content = element.Attributes.ResourceId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
             //tb_value_FrameworkId.Content = element.Attributes.FrameworkId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
             //tb_value_HasvalueboardFocus.Content = element.Attributes.HasKeyboardFocus == true ? "true" : "fasle";
             //tb_value_HelpText.Content = element.Attributes.HelpText ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
