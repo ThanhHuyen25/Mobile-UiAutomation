@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 //using Microsoft.CodeAnalysis.MSBuild;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,7 @@ namespace TestingApplication
         #region const
         public const string INSTANCE_NAME = "elements";
         public const string NEW_LINE = AbstractSpecUserAction.NEW_LINE;
-
+        public const string TAB = AbstractSpecUserAction.TAB;
         public const string NAMESPACE_REPLACE = "ns_replace";
         public const string CLASS_REPLACE = "class_replace";
         public const string CONTENT_REPLACE = "content_replace";
@@ -68,7 +69,7 @@ namespace TestingApplication
         /// <param name="myLog"></param>
         /// <returns>map (folder_path, list_files_in_folder)</returns>
         public Tuple<Dictionary<string, string>, List<string>> Generate(List<IScreen> screenList, string folderPath,
-            string repoFilePath, string imageCapFilePath, string appFilePath, string classRepoName, 
+            string repoFilePath, string imageCapFilePath, string appFilePath, string classRepoName,
             string name_space, string mainClassInstance, MyLog myLog, string instanceName = INSTANCE_NAME)
         {
             //List<string> runningFilePath = new List<string>();
@@ -82,8 +83,8 @@ namespace TestingApplication
                 {
                     if (aScreen == null)
                         aScreen = specScreen;
-                    ProcessScreen(specScreen, mapFilePathAndId, additionScripts, additionClasses, 
-                        folderPath, repoFilePath, imageCapFilePath, appFilePath, classRepoName, name_space, 
+                    ProcessScreen(specScreen, mapFilePathAndId, additionScripts, additionClasses,
+                        folderPath, repoFilePath, imageCapFilePath, appFilePath, classRepoName, name_space,
                         mainClassInstance, myLog, instanceName);
                 }
                 else
@@ -95,7 +96,16 @@ namespace TestingApplication
                 imageCapFilePath, appFilePath, classRepoName, name_space, mainClassInstance, instanceName, mapFilePathAndId);
             return new Tuple<Dictionary<string, string>, List<string>>(mapFilePathAndId, otherFilePath);
         }
+        public Tuple<Dictionary<string, string>> GenerateAndroid(List<SpecScreen> screenList, string projFolderPath,
+            string appFilePath, string projectName, string ClassInstance, MyLog myLog, string instanceName = INSTANCE_NAME)
+        {
+            Dictionary<string, string> mapFilePathAndId = new Dictionary<string, string>();
+            List<UserCodeScriptsExpression> additionScripts = new List<UserCodeScriptsExpression>();
+            List<ClassExpression> additionClasses = new List<ClassExpression>();
+            SpecScreen aScreen = null;
 
+            return new Tuple<Dictionary<string, string>>(mapFilePathAndId);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -130,6 +140,70 @@ namespace TestingApplication
             List<string> otherFilePath = GenerateAdditionClassses(additionScripts, additionClasses, aScreen, myLog, projFolderPath, repoFilePath,
                 imageCapFilePath, appFilePath, classRepoName, name_space, mainClassInstance, instanceName, mapFilePathAndId);
             return new Tuple<Dictionary<string, string>, List<string>>(mapFilePathAndId, otherFilePath);
+        }
+        // Android script code
+        public string GenerateScriptAndroid(List<SpecScreen> specScreens, string folderOutPath, string nameFile)
+        {
+            string result = "";
+            List<string> nameClass = new List<string>();
+            nameClass.Add(nameFile);
+            for (int j = 0; j < specScreens.Count; j++)
+            {
+                if (j < (specScreens.Count - 1))
+                {
+                    string newNameFile = nameFile + (j + 1);
+                    File.Copy(folderOutPath + nameFile + ".java", folderOutPath + newNameFile + ".java", true);
+                    nameClass.Add(newNameFile);
+                }
+                using (StreamWriter sw = new StreamWriter(folderOutPath + nameClass[j] + ".java", true, Encoding.UTF8))
+                {
+                    result = "public class " + nameClass[j] + " {" + NEW_LINE;
+
+                    // element
+                    List<SpecNode> listSpecNodes = specScreens[j].ListSpecNodes;
+                    for (int k = 0; k < specScreens[j].Scenarios.Count; k++)
+                    {
+                        result += "@SuppressLint(\"Assert\")" + NEW_LINE;
+                        result += "@Test" + NEW_LINE;
+                        result += "public void testCal" + k + "() throws Exception {" + NEW_LINE;
+                        result += "MyTestProjectDefinition element = new MyTestProjectDefinition();" + NEW_LINE;
+                        result += "element.connectDevice();" + NEW_LINE;
+                        SpecScenario scenario = specScreens[j].Scenarios[k] as SpecScenario;
+                        
+                        List<string> listActionExp = scenario.UserActionsInString;
+                        List<Color> listColor = scenario.Colors;
+                        for (int i = 0; i < listSpecNodes.Count; i++)
+                        {
+                            result += GenScriptCode(listColor[i], listSpecNodes[i], listActionExp[i]);
+                            //result += "element." + listSpecNodes[i].UIElement.Attributes.Name + "." + listActionExp[i] + "();" + NEW_LINE;
+                        }
+                        result += NEW_LINE;
+                        result += "element.closeConnect();" + NEW_LINE + "}";
+
+
+                    }
+                    result += NEW_LINE + "}";
+                    sw.WriteLine(result);
+
+                }
+
+
+            }
+            //result += "element.closeConnect();" + NEW_LINE + "}" + NEW_LINE + "}";
+            return result;
+        }
+        public string GenScriptCode(Color color, SpecNode specNode, string actionExp)
+        {
+            string result="";
+            if (color.Equals(AbstractSpecUserAction.PROCEDURES_COLOR))
+            {
+                result += "element." + specNode.UIElement.Attributes.Name + "." + actionExp + "();" + NEW_LINE;
+            }
+            else if (color.Equals(AbstractSpecUserAction.PRE_CONDITION_COLOR))
+            {
+                result += "element." + specNode.UIElement.Attributes.Name + ".SendKey(" + actionExp.Replace('\'', '\"') + ");" + NEW_LINE;
+            }
+            return result;
         }
 
         /// <summary>

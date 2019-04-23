@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestingApplication"
         mc:Ignorable="d"
-        Title="SelectDevice" Height="450" Width="800">
+        Title="SelectDevice" Height="305" Width="500">
     <Grid>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Height="289" Margin="27,31,0,0" VerticalAlignment="Top" Width="723" SelectionChanged="ListView_SelectionChanged">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Height="189" Margin="27,31,0,0" VerticalAlignment="Top" Width="423" SelectionChanged="ListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="Ok" Content="OK" HorizontalAlignment="Left" Margin="675,357,0,0" VerticalAlignment="Top" Width="75" Height="32" Click="Ok_Click"/>
+        <Button x:Name="Ok" Content="Select" HorizontalAlignment="Left" Margin="367,230,0,0" VerticalAlignment="Top" Width="75" Height="32" Click="Ok_Click"/>
 
     </Grid>
 </Window>

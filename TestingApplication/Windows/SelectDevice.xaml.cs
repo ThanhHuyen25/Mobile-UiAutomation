@@ -12,13 +12,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace TestingApplication
 {
     /// <summary>
     /// Interaction logic for SelectDevice.xaml
     /// </summary>
-    public partial class SelectDevice : Window
+    public partial class SelectDevice : Window, IProgressResultNoti
     {
         private ISelectedDeviceNotify notify;
         // close
@@ -26,26 +27,24 @@ namespace TestingApplication
         private SelectDevice()
         {
             InitializeComponent();
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.FileName = "adb";
-
             AndroidAdbCommand AdbCommand = new AndroidAdbCommand();
             List<AndroidDevice> Devices = new List<AndroidDevice>();
             Devices = AdbCommand.GetAllDevices();
-            for(int i=0; i < Devices.Count; i++)
+            for (int i = 0; i < Devices.Count; i++)
             {
-                listView.Items.Add(Devices[i].Name);
+                listView.Items.Add(Devices[i].Name + " - " + Devices[i].Ip);
+            }
+            if(Devices.Count == 0)
+            {
+                Ok.IsEnabled = true;
             }
             
+
         }
 
-        //public SelectDevice(ICloseWindowNotify closeWindow) : this()
-        //{
-        //    this.closeWindow = closeWindow;
-        //}
+        public static AndroidDevice selectDevice;
 
-            // close
+        // close
         public SelectDevice(ISelectedDeviceNotify notify, ICloseWindowNotify closeWindow) : this()
         {
             this.notify = notify;
@@ -74,39 +73,79 @@ namespace TestingApplication
             AndroidAdbCommand AdbCommand = new AndroidAdbCommand();
             List<AndroidDevice> Devices = new List<AndroidDevice>();
             Devices = AdbCommand.GetAllDevices();
-
-            for (int i=0; i<listView.Items.Count;i++)
+            if(Devices.Count != 0)
             {
-                string name = listView.SelectedItems[i].ToString();
-                name = name.Replace("\r", "");
-                name = name.Replace("\n", "");
-                if (name != null)
+                for (int i = 0; i < listView.Items.Count; i++)
                 {
-                    //MessageBox.Show(name);
-                    //break;
-                    for (int j = 0; j < Devices.Count; j++)
+                    string name = listView.SelectedItems[i].ToString();
+                    name = name.Replace("\r", "");
+                    name = name.Replace("\n", "");
+                    if (name != null)
                     {
-                        if (Devices[j].Name == name)
+                        //MessageBox.Show(name);
+                        //break;
+                        for (int j = 0; j < Devices.Count; j++)
                         {
-                            string test = AdbCommand.DumpGUI(Devices[j]);
-                            List<IElement> elements = new AndroidAdbDumpFileParser().Parse(test);
-                            //MessageBox.Show(test);
-                            if (elements != null)
+                            if (Devices[j].Name + " - " + Devices[j].Ip == name)
                             {
-                                // close
-                                this.Close();
-                                closeWindow.CloseWindow();
-                                notify.SelectedDeviceCallBack(elements);
+                                ProgressDialog selectCodesProgress = new ProgressDialog("Selecting", "Please wait!", this);
+                                selectCodesProgress.Show();
+                                System.Threading.Tasks.Task.Factory.StartNew(
+                                new Action(() =>
+                                {
+                                    selectDevice = Devices[j];
+                                    string test = AdbCommand.DumpGUI(Devices[j]);
+                                    List<IElement> elements = new AndroidAdbDumpFileParser().Parse(test);
+                                    //MessageBox.Show(test);
+                                    if (elements != null)
+                                    {
+                                        //update in UI Thread
+                                        System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                                        DispatcherPriority.Background,
+                                        new Action(() =>
+                                        {
+                                            selectCodesProgress.Close();
+                                            this.Close();
+                                            closeWindow.CloseWindow();
+                                            notify.SelectedDeviceCallBack(elements);
+
+                                        }));
+
+
+                                    }
+
+                                }));
                                 
+                                break;
                             }
-                            break;
-                            }
+                        }
+
+                        break;
                     }
-                    
-                    break;
+                    else
+                    {
+                        MessageBox.Show("Please Choice Device!");
+
+                    }
                 }
-                else { MessageBox.Show("Please Choice Device!"); }
+                
             }
+            
+        }
+
+        public void OnSuccessful()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnFailure()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnCancel()
+        {
+            throw new NotImplementedException();
         }
     }
 }

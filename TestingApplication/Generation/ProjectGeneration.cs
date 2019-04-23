@@ -60,11 +60,62 @@ namespace TestingApplication
             }
             return Generate(listRootElements, specScreens, folderOutPath, projectName, appPath, myLog);
         }
+        // generate android, specExcelAnalyzer
+        public bool GenerateAndroid(List<IElement> listRootElements, string folderOutPath, string projectName,
+            string specExcelFilePath, AndroidDevice androidDevice)
+        {
+            MyLog myLog = new MyLog();
+            List<SpecScreen> specScreens = null;
+            ExcelSpecificationParser excelSpecificationParser = new ExcelSpecificationParser();
+            specScreens = excelSpecificationParser.ParseWithRootElements(specExcelFilePath, RuntimeInstance.listRootElement, myLog);
+            return GenerateAndroid(listRootElements, specScreens, folderOutPath, projectName, androidDevice, myLog);
+        }
+        // generate android
+        public bool GenerateAndroid(List<IElement> listRootElements, List<SpecScreen> screensExpanded,
+            string folderOutPath, string projectName, AndroidDevice androidDevice, MyLog myLog)
+        {
+            // generate Element code
+            GenerateElement(listRootElements, folderOutPath, projectName, androidDevice, myLog);
+            // generate scripts
+            GenerateScriptCode(screensExpanded, folderOutPath, projectName);
+            return true;
+        }
+        // generate Element code
+        // write file Definition
+        private bool GenerateElement(List<IElement> listRootElements, string folderOutPath, string projectName, AndroidDevice androidDevice, MyLog myLog)
+        {
+            string result1 = "";
+            folderOutPath = folderOutPath + "\\" + projectName + "\\app\\src\\main\\java\\com\\example\\catty\\appiumtest\\MyTestProjectDefinition.java";
+            using (StreamWriter sw = new StreamWriter(folderOutPath, true, Encoding.UTF8))
+            {
+                foreach (IElement rootElement in RuntimeInstance.listRootElement)
+                {
+                    result1 = new ElementCSharpCodeGeneration().ElementDefineTest(rootElement, androidDevice);
+                    sw.WriteLine(result1);
+                }
+            }
+            return true;
+        }
+        //generate Script
+        private bool GenerateScriptCode(List<SpecScreen> specScreens, string folderOutPath, string projectName)
+        {
+            string result = "";
+            folderOutPath += "\\" + projectName + "\\app\\src\\main\\java\\com\\example\\catty\\appiumtest\\";
+            string nameFile = "TestAction";
+            //using (StreamWriter sw = new StreamWriter(folderOutPath, true))
+            //{
+                CSharpScriptsGeneration cSharpScripts = new CSharpScriptsGeneration();
+                result = cSharpScripts.GenerateScriptAndroid(specScreens, folderOutPath, nameFile);
+               // sw.WriteLine(result);
 
+            //}
+            return true;
+        }
+        
         public bool Generate(List<IElement> listRootElements, List<SpecScreen> screensExpanded,
             string folderOutPath, string projectName, string appPath, MyLog myLog)
         {
-            string tempFolderPath = Utils.CreateTempFolder(projectName + "_" +
+            string tempFolderPath = Utils.CreateTempFolder(projectName + "_" + 
                 DateTime.Now.ToString("yyMMdd_HHmmss"));
             // generate CSharp code
             ElementCSharpCodeGeneration elementCSharpCodeGeneration = new ElementCSharpCodeGeneration();

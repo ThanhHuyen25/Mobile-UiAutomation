@@ -129,7 +129,8 @@ namespace TestingApplication
                     try
                     {
                         ProcessWithExeFile(fileToOpen);
-                    } catch (Exception)
+                    }
+                    catch (Exception)
                     {
 
                     }
@@ -218,8 +219,8 @@ namespace TestingApplication
                         ProcessWithExeFile(pathExeFile);
                 }));
             }));
-            
-            
+
+
         }
 
         private void ProcessWithInstanceProcess(Process process)
@@ -332,7 +333,7 @@ namespace TestingApplication
 
         private void ExportProject_Click(object sender, RoutedEventArgs e)
         {
-           // ExportProjectAction();
+            // ExportProjectAction();
             ExportProject();
         }
 
@@ -601,12 +602,14 @@ namespace TestingApplication
         }
 
         // Export project
-        private void ExportProject()
+        /*private void ExportProject()
         {
+            string folderOutPath = "C:\\Users\\admin\\Desktop\\Test.txt";
+            string specExcelFilePath = excel_spec_file_path;
             string extractPath = "";
             FolderBrowserDialog folderDlg = new FolderBrowserDialog();
             DialogResult result = folderDlg.ShowDialog();
-            
+
             if (result.ToString().Equals("OK"))
             {
                 extractPath = folderDlg.SelectedPath;
@@ -614,21 +617,81 @@ namespace TestingApplication
                 export_project_progress.Show();
                 Task.Factory.StartNew(new Action(() =>
                 {
-                    InitializeComponent();
                     string filePath = "D:\\UIAutomation\\Mobile-UiAutomation\\TestingApplication\\FileZip\\MyApplication.zip";
-                    
                     string nameProject = "MyApplication";
-                    string newNameProject = "AndroidProjectTest" + System.DateTime.Now.ToFileTime();
+                    string newNameProject = "AndroidProjectTest" + DateTime.Now.ToString("yyMMdd_HHmmss");
+                    //newNameProject = "MyApplication";
                     ZipFile.ExtractToDirectory(filePath, extractPath);
                     Directory.Move(extractPath + "\\" + nameProject, extractPath + "\\" + newNameProject);
+                    folderOutPath = extractPath;
+                    new ProjectGeneration().GenerateAndroid(RuntimeInstance.listRootElement, folderOutPath, newNameProject, specExcelFilePath, SelectDevice.selectDevice);
+                    System.Threading.Thread.Sleep(10000);
                 }));
                 export_project_progress.Close();
-
+                System.Threading.Thread.Sleep(1000);
                 string message = "Export Project Success!!!";
                 System.Windows.Forms.MessageBox.Show(message, "Message");
             }
-        }
+            
 
+        }*/
+        private void ExportProject()
+        {
+            string folderOutPath = "C:\\Users\\admin\\Desktop";
+            string nameProject = "MyApplication";
+            string specExcelFilePath = excel_spec_file_path;
+            string extractPath = "";
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "MyTestProject"; // Default file name
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+            // Process save file dialog box results
+            if (result == true)
+            {
+                ProgressDialog exportCodesProgress = new ProgressDialog("Exporting project", "Exporting, please wait!", this);
+                exportCodesProgress.Show();
+                System.Threading.Tasks.Task.Factory.StartNew(
+                new Action(() =>
+                {
+                    extractPath = dlg.FileName;
+                    string filePath = "D:\\UIAutomation\\Mobile-UiAutomation\\TestingApplication\\FileZip\\MyApplication.zip";
+                    string newNameProject = System.IO.Path.GetFileName(dlg.FileName);
+                    bool genResult = false, exception = false;
+                    try
+                    {
+                        ZipFile.ExtractToDirectory(filePath, extractPath);
+                        Directory.Move(extractPath + "\\" + nameProject, extractPath + "\\" + newNameProject);
+                        folderOutPath = extractPath;
+                        genResult = new ProjectGeneration().GenerateAndroid(RuntimeInstance.listRootElement, folderOutPath, newNameProject, specExcelFilePath, SelectDevice.selectDevice);
+                        
+                    }
+                    catch (Exception e)
+                    {
+                        exception = true;
+                        System.Windows.MessageBox.Show(e.Message, "Export project fail! ", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                      //update in UI Thread
+                    System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                    DispatcherPriority.Background,
+                    new Action(() =>
+                    {
+                        btnExportCode.IsEnabled = true;
+                        imgExportCode.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/icons/Export_30x.png"));
+                        exportCodesProgress.Close();
+                        if (genResult && !exception)
+                        {
+                            MessageBoxResult res = System.Windows.MessageBox.Show(
+                            "Exported successfully!", "Export project",
+                                            MessageBoxButton.OK,
+                                            MessageBoxImage.Information);
+                        }
+                    }));
+                }));
+            }
+             
+
+        }
 
         private void ExportProjectAction()
         {
@@ -673,37 +736,37 @@ namespace TestingApplication
                                        MessageBoxButton.OK,
                                        MessageBoxImage.Error);
                             }
-                        //update in UI Thread
-                        System.Windows.Application.Current.Dispatcher.BeginInvoke(
-                                  DispatcherPriority.Background,
-                               new Action(() =>
-                               {
-                                   btnExportCode.IsEnabled = true;
-                                   imgExportCode.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/icons/Export_30x.png"));
-                                   exportCodesProgress.Close();
-                                   if (genResult && !exception)
+                            //update in UI Thread
+                            System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                                      DispatcherPriority.Background,
+                                   new Action(() =>
                                    {
-                                       MessageBoxResult res = System.Windows.MessageBox.Show(
-                                           "Exported successfully! Do you want to open project now?",
-                                           "Export project",
-                                           MessageBoxButton.YesNo,
-                                           MessageBoxImage.Information);
-                                       if (res == MessageBoxResult.Yes)
+                                       btnExportCode.IsEnabled = true;
+                                       imgExportCode.Source = new BitmapImage(new Uri("pack://application:,,,/Resources/icons/Export_30x.png"));
+                                       exportCodesProgress.Close();
+                                       if (genResult && !exception)
                                        {
-                                           string newSolutionPath = Path.Combine(selectedDir, projectName + ".sln");
-                                           var psi = new System.Diagnostics.ProcessStartInfo(newSolutionPath);
-                                           System.Diagnostics.Process.Start(psi);
+                                           MessageBoxResult res = System.Windows.MessageBox.Show(
+                                               "Exported successfully! Do you want to open project now?",
+                                               "Export project",
+                                               MessageBoxButton.YesNo,
+                                               MessageBoxImage.Information);
+                                           if (res == MessageBoxResult.Yes)
+                                           {
+                                               string newSolutionPath = Path.Combine(selectedDir, projectName + ".sln");
+                                               var psi = new System.Diagnostics.ProcessStartInfo(newSolutionPath);
+                                               System.Diagnostics.Process.Start(psi);
+                                           }
                                        }
-                                   }
-                                   else if (!genResult && !exception)
-                                   {
-                                       MessageBoxResult res = System.Windows.MessageBox.Show(
-                                           "An error occured when exporting project",
-                                           "Export project fail",
-                                           MessageBoxButton.OK,
-                                           MessageBoxImage.Error);
-                                   }
-                               }));
+                                       else if (!genResult && !exception)
+                                       {
+                                           MessageBoxResult res = System.Windows.MessageBox.Show(
+                                               "An error occured when exporting project",
+                                               "Export project fail",
+                                               MessageBoxButton.OK,
+                                               MessageBoxImage.Error);
+                                       }
+                                   }));
                         }));
                 }
             }
@@ -715,12 +778,12 @@ namespace TestingApplication
                 {
                     string folderSelected = dialog.SelectedPath;
                     var genResult = new ProjectGeneration().GenerateRanorexProject(
-                                    listRootElements : RuntimeInstance.listRootElement,
-                                    screensExpanded : listScreens,
-                                    repoFilePath : ranorex_repo_file_path,
-                                    folderOutPath : folderSelected,
-                                    appPath : app_under_test_path,
-                                    myLog : myLog);
+                                    listRootElements: RuntimeInstance.listRootElement,
+                                    screensExpanded: listScreens,
+                                    repoFilePath: ranorex_repo_file_path,
+                                    folderOutPath: folderSelected,
+                                    appPath: app_under_test_path,
+                                    myLog: myLog);
                 }
             }
         }
@@ -778,11 +841,10 @@ namespace TestingApplication
         /// <param name="element"></param>
         private void ShowInfoProperties(IElement element)
         {
-            
-            //tb_value_Parent.Content = element.Parent == null ? "" : element.Parent.ToString();
+            // tb_value_Parent.Content = element.Parent == null ? "" : element.Parent.ToString();
             // tb_value_AcceleratorKey.Text = element.AcceleratorKey;
             //tb_value_DesignedId.Content = element.Attributes.DesignedId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
-           //tb_value_Children.Content = element.Children == null ? "" : element.Children.ToString();
+            // tb_value_Children.Content = element.Children == null ? "" : element.Children.ToString();
             //tb_value_ElementPath.Content = element.Attributes.ElementPath == null ? "" : element.Attributes.ElementPath.ToString();
             //tb_value_ImageCaptureEncoded.Text = element.ImageCaptureEncoded;
             //tb_value_Acceleratorvalue.Content = element.Attributes.AcceleratorKey ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
@@ -802,7 +864,7 @@ namespace TestingApplication
             tb_value_LongClickable.Content = element.Attributes.LongClickable == true ? "true" : "false";
             tb_value_Password.Content = element.Attributes.Password == true ? "true" : "false";
             tb_value_Selected.Content = element.Attributes.Selected == true ? "true" : "false";
-            //tb_value_ResourceId.Content = element.Attributes.ResourceId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
+            // tb_value_ResourceId.Content = element.Attributes.ResourceId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
             //tb_value_FrameworkId.Content = element.Attributes.FrameworkId ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
             //tb_value_HasvalueboardFocus.Content = element.Attributes.HasKeyboardFocus == true ? "true" : "fasle";
             //tb_value_HelpText.Content = element.Attributes.HelpText ?? DEFAULT_NULL_ELEMENT_ATTRIBUTE;
@@ -826,7 +888,7 @@ namespace TestingApplication
             //tb_value_ResourceId.Content = element.Attributes.ResourceId;
             tb_value_Bound.Content = element.Attributes.RectBounding;
             tb_value_Xpath.Content = element.Attributes.Xpath;
-            
+
         }
 
         /// <summary>
@@ -1228,7 +1290,7 @@ namespace TestingApplication
             this.timer.Stop();
             //logger.Debug("start remove event registered...");
             //if (lastInspectType == 0)
-                //Automation.RemoveAllEventHandlers();
+            //Automation.RemoveAllEventHandlers();
             //logger.Debug("finish remove event registered!");
             ResetWindow();
         }
@@ -1327,15 +1389,15 @@ namespace TestingApplication
 
             //logger.Info("DisplayTestScenarios thread: " + Thread.CurrentThread.ManagedThreadId);
 
-            if (grid_row_definition_scenarios.Height.Equals(new GridLength(0)));
-                grid_row_definition_scenarios.Height = new GridLength(1, GridUnitType.Star);
+            if (grid_row_definition_scenarios.Height.Equals(new GridLength(0))) ;
+            grid_row_definition_scenarios.Height = new GridLength(1, GridUnitType.Star);
             var ucTestScenarios = new UCTestScenarios(screens);
             grid_raw_scenarios.Children.Clear();
             grid_raw_scenarios.Children.Add(ucTestScenarios);
             //ucTestScenarios.LoadData(screens);
         }
 
-        private List<SpecScreen> HandleSpecExcelFile(List<IElement> listRootElements, string specExcelFilePath, 
+        private List<SpecScreen> HandleSpecExcelFile(List<IElement> listRootElements, string specExcelFilePath,
             string appPath, MyLog myLog)
         {
             //logger.Info("HandleSpecExcelFile thread: " + Thread.CurrentThread.ManagedThreadId);
@@ -1352,7 +1414,7 @@ namespace TestingApplication
             catch (Exception e)
             {
                 logger.Error("Exception when analyzing spec. " + e.StackTrace);
-                return null; 
+                return null;
             }
         }
         #endregion util functions
@@ -1396,5 +1458,5 @@ namespace TestingApplication
         Normal, Ranorex
     }
 
-    
+
 }

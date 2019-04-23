@@ -29,23 +29,46 @@ namespace TestingApplication
             string output1 = p.StandardOutput.ReadToEnd();
 
             int l = output1.Length - 1;
-            while ((i + 2) <l)
+            while ((i + 2) < l)
             {
 
-                string test = output1.Substring(i, 20);
-                AndroidDevice android = new AndroidDevice();
-                android.Ip = test;
-                p.StartInfo.Arguments = "-s" + test + " shell getprop ro.product.model";
+                string ip = output1.Substring(i, 20);
+                ip = ip.Replace("\t", "");
+                p.StartInfo.Arguments = "-s" + ip + " shell getprop ro.product.model";
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
                 p.StartInfo.CreateNoWindow = true; // an man hinh
                 p.Start();
-                string output = p.StandardOutput.ReadToEnd();
-                output = output.Replace("\r", "");
-                output = output.Replace("\n", "");
-                android.Name = output;
+                string name = p.StandardOutput.ReadToEnd();
+                name = name.Replace("\r", "");
+                name = name.Replace("\n", "");
+                // activity
+                p.StartInfo.Arguments = "-s" + ip + " shell \"dumpsys window windows | grep -E mCurrentFocus\"";
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true; // an man hinh
+                p.Start();
+                string output2 = p.StandardOutput.ReadToEnd();
+                output2 = output2.Replace("{", "");
+                output2 = output2.Replace("}", " ");
+                string[] arrayOutputSub = new string[10];
+                arrayOutputSub = output2.Split(' ');
+                string x = arrayOutputSub[4];
+                string[] arrOutputSub1 = x.Split('/');
+                string package = arrOutputSub1[0];
+                string activity = arrOutputSub1[1];
+                // version adb shell getprop ro.build.version.release
+                p.StartInfo.Arguments = "-s" + ip + " shell getprop ro.build.version.release";
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.CreateNoWindow = true; // an man hinh
+                p.Start();
+                string version = p.StandardOutput.ReadToEnd();
+                version = version.Replace("\r", "");
+                version = version.Replace("\n", "");
+                AndroidDevice android = new AndroidDevice(ip, name, version, activity, package);
                 Devices.Add(android);
-                i = i + 28 + 1;
+                i = i + 28;
 
             }
             //throw new NotImplementedException();
@@ -62,7 +85,7 @@ namespace TestingApplication
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.FileName = "adb";
-            p.StartInfo.Arguments = "-s " + device.Ip + " shell uiautomator dump -a";
+            p.StartInfo.Arguments = "-s " + device.Ip + " shell uiautomator dump -d";
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.CreateNoWindow = true; //an man hinh
@@ -86,7 +109,7 @@ namespace TestingApplication
                 p.StartInfo.RedirectStandardError = true;
                 p.Start();
                 //string output = p.StandardOutput.ReadToEnd();
-               
+
                 p.StartInfo.Arguments = "-s " + device.Ip + " shell screencap -p /sdcard/screen.png";
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
@@ -112,8 +135,8 @@ namespace TestingApplication
         //{
         //    System.Diagnostics.Process p = new System.Diagnostics.Process();
         //    p.StartInfo.UseShellExecute = false;
-            
-         
+
+
         //}
     }
 }

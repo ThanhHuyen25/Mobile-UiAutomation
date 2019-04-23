@@ -19,13 +19,17 @@ namespace TestingApplication
         string description;
         string ip;
         string name;
+        string version;
+        string activity;
+        string package;
         public AndroidDevice() { }
-        public AndroidDevice(string serialNumber, string state, string ip, string name)
+        public AndroidDevice(string ip, string name, string version, string activity, string package)
         {
-            this.serialNumber = serialNumber;
-            this.state = state;
             this.ip = ip;
             this.name = name;
+            this.version = version;
+            this.activity = activity;
+            this.package = package;
         }
 
         public string SerialNumber
@@ -90,5 +94,42 @@ namespace TestingApplication
                 name = value;
             }
         }
+        public string Version
+        {
+            get
+            {
+                return version;
+            }
+
+            set
+            {
+                version = value;
+            }
+        }
+        public string Activity
+        {
+            get
+            {
+                return activity;
+            }
+
+            set
+            {
+                activity = value;
+            }
+        }
+        public string Package
+        {
+            get
+            {
+                return package;
+            }
+
+            set
+            {
+                package = value;
+            }
+        }
+
     }
 }

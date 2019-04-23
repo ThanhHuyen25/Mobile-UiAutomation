@@ -77,7 +77,73 @@ namespace TestingApplication
             return replace;
         }
 
-        public string GenParentElementClass2(IElement element, string childrenContent)
+        //Test Android
+        public string ElementDefineTest(IElement rootElement, AndroidDevice androidDevice)
+        {
+            string replace = DeviceAndroidDefine(androidDevice) + NEW_LINE;
+            replace += GenParentElementClass2Test(rootElement, "") + NEW_LINE + "}";
+            return replace;
+        }
+        //Test
+        public string GenParentElementClass2Test(IElement element, string childrenContent)
+        {
+            //item-element
+            if (element.Children == null || element.Children.Count <= 0)
+            {
+                return ItemElementDefineTest(new ArgumentInitElement(
+                            element.Attributes.Xpath,
+                            element.GetType().Name.Replace("GUI_Testing_Automation", ""),
+                            FormatName(element.Attributes.Name),
+                            element.Attributes.ElementType));
+            }
+            /**
+             * container element
+             **/
+            else
+            {
+                NormalizeName(element.Children);
+                string childrenScripts = "";
+                List<string> childrenVars = new List<string>();
+                foreach (IElement child in element.Children)
+                {
+                    childrenScripts += GenParentElementClass2Test(child, childrenContent);
+                    
+                    childrenVars.Add("" + FormatName(child.Attributes.Name));
+                }
+                string elementScripts = ContainElementDefineTest(
+                    new ArgumentInitElement(
+                        element.Attributes.Xpath,
+                        FormatName(element.Attributes.Name) + "_Class",
+                        FormatName(element.Attributes.Name),
+                        element.Attributes.ElementType),
+                    childrenVars,
+                    FormatName(element.Attributes.Name) + "_Class",
+                    element.GetType().Name.Replace("GUI_Testing_Automation", ""),
+                    childrenScripts);
+                return elementScripts;
+            }
+        }
+        // Android
+        private string ContainElementDefineTest(ArgumentInitElement arg, List<string> childrenVars,
+                string className, string classNameBase, string childrenContent)
+        {
+            string definitionElements = "IElement " + arg.VariableName + " = new ElementBase(new ElementAttributes(\""
+                + arg.Id + "\"));" + NEW_LINE;
+            
+            definitionElements += childrenContent;
+
+            return definitionElements;
+        }
+        // Android
+        private string ItemElementDefineTest(ArgumentInitElement arg)
+        {
+            string childClassName = arg.ClassName;
+            string childVariableName = "" + arg.VariableName;
+            string elementDefine = "IElement " + " " + childVariableName + " = new ElementBase(new ElementAttributes( \""
+                    + arg.Id + "\"));" + NEW_LINE;
+            return elementDefine;
+        }
+            public string GenParentElementClass2(IElement element, string childrenContent)
         {
             //item-element
             if (element.Children == null || element.Children.Count <= 0)
@@ -199,6 +265,17 @@ namespace TestingApplication
                     re.Add(fi);
             }
             return re;
+        }
+        // Generate code device
+        public string DeviceAndroidDefine(AndroidDevice androidDevice)
+        {
+            string deviceString = "androidDevices = new AndroidDevices(\"";
+            deviceString += androidDevice.Ip + "\",\"";
+            deviceString += androidDevice.Version + ".0\",\"";
+            deviceString += androidDevice.Activity + "\",\"";
+            deviceString += androidDevice.Package + "\"";
+            deviceString += ");";
+            return deviceString;
         }
     }
 

@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace TestingApplication
 {
     /// <summary>
     /// Interaction logic for ChoiceWindow.xaml
     /// </summary>
-    public partial class ChoiceWindow : Window, ICloseWindowNotify
+    public partial class ChoiceWindow : Window, ICloseWindowNotify, IProgressResultNoti
     {
         private ISelectedDeviceNotify notify;
         // close
@@ -55,10 +56,40 @@ namespace TestingApplication
         }
         private void BtnAndroi_Click(object render, RoutedEventArgs e)
         {
-            this.Title = "Success!!!";
+            //this.Title = "Success!!!";
             // chuyen cua so
             // close
             new SelectDevice(notify, this).Show();
+           /* ProgressDialog exportCodesProgress = new ProgressDialog("Wait Choice", "Please wait!", this);
+            exportCodesProgress.Show();
+            System.Threading.Tasks.Task.Factory.StartNew(
+            new Action(() =>
+            {
+                new SelectDevice(notify, this).Show();
+                //update in UI Thread
+                System.Windows.Application.Current.Dispatcher.BeginInvoke(
+                DispatcherPriority.Background,
+                new Action(() =>
+                {
+                    exportCodesProgress.Close();
+                    
+                }));
+            }));*/
+        }
+
+        public void OnSuccessful()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnFailure()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnCancel()
+        {
+            throw new NotImplementedException();
         }
     }
 
