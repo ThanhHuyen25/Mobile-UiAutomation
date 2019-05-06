@@ -89,13 +89,53 @@ namespace TestingApplication
             }
             else if (re.Attributes.Name.StartsWith("AppWidgetHostView"))
             {
-
+                re = new TextViewAndroidElement();
             }
             else if (re.Attributes.Name.StartsWith("ImageView"))
             {
                 re = new ImageViewAndroidElement();
             }
             else if (re.Attributes.Name.StartsWith("ListView"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("LinearLayout"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("ScrollView"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("ViewPager"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("ViewSwitcher"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("Image"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("ImageButton"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("EditText"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("MultiAutoCompleteTextView"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("Spinner"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("QuickContactBadge"))
             {
                 re = new ListViewAndroidElement();
             }
@@ -113,8 +153,16 @@ namespace TestingApplication
                 string str = element.Attributes.ResourceId;
                 if (str == "")
                 {
-                    tmp = "layout" + i;
-                    i++;
+                    str = element.Attributes.Text;
+                    if(str == "")
+                    {
+                        tmp = "layout" + i;
+                        i++;
+                    } 
+                    else
+                    {
+                        tmp = str;
+                    }
                 }
                 else
                 {
@@ -124,63 +172,75 @@ namespace TestingApplication
             }
             if (node.Attributes["class"].Value.EndsWith("LinearLayout"))
             {
-                element.Attributes.Name = "LinearLayout_" + tmp;
+                element.Attributes.Name = "LinearLayout " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("FrameLayout"))
             {
-                element.Attributes.Name = "FrameLayout_" + tmp;
+                element.Attributes.Name = "FrameLayout " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("RelativeLayout"))
             {
-                element.Attributes.Name = "RelativeLayout_" + tmp;
+                element.Attributes.Name = "RelativeLayout " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("ListView"))
             {
-                element.Attributes.Name = "ListView_" + tmp;
+                element.Attributes.Name = "ListView " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("ScrollView"))
             {
-                element.Attributes.Name = "ScrollView_" + tmp;
+                element.Attributes.Name = "ScrollView " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("View"))
             {
-                element.Attributes.Name = "View_" + tmp;
+                element.Attributes.Name = "View " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("ViewPager"))
             {
-                element.Attributes.Name = "ViewPager_" + tmp;
+                element.Attributes.Name = "ViewPager " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("ViewSwitcher"))
             {
-                element.Attributes.Name = "ViewSwitcher_" + tmp;
+                element.Attributes.Name = "ViewSwitcher " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("TextView"))
             {
-                element.Attributes.Name = "TextView_" + tmp;
+                element.Attributes.Name = "TextView " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("AppWidgetHostView"))
             {
-                element.Attributes.Name = "AppWidgetHostView_" + tmp;
+                element.Attributes.Name = "AppWidgetHostView " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("ImageView"))
             {
-                element.Attributes.Name = "ImageView_" + tmp;
+                element.Attributes.Name = "ImageView " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("Image"))
             {
-                element.Attributes.Name = "Image_" + tmp;
+                element.Attributes.Name = "Image " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("ImageButton"))
             {
-                element.Attributes.Name = "ImageButton_" + tmp;
+                element.Attributes.Name = "ImageButton " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("Button"))
             {
-                element.Attributes.Name = "Button_" + tmp;
+                element.Attributes.Name = "Button " + tmp;
             }
             else if (node.Attributes["class"].Value.EndsWith("EditText"))
             {
-                element.Attributes.Name = "EditText_" + tmp;
+                element.Attributes.Name = "EditText " + tmp;
+            } 
+            else if (node.Attributes["class"].Value.EndsWith("MultiAutoCompleteTextView"))
+            {
+                element.Attributes.Name = "MultiAutoCompleteTextView " + tmp;
+            }
+            else if (node.Attributes["class"].Value.EndsWith("Spinner"))
+            {
+                element.Attributes.Name = "Spinner " + tmp;
+            }
+            else if (node.Attributes["class"].Value.EndsWith("QuickContactBadge"))
+            {
+                element.Attributes.Name = "QuickContactBadge " + tmp;
             }
         }
 
@@ -213,6 +273,7 @@ namespace TestingApplication
                 var rectBound = element.Attributes.RectBounding;
                 Thread.Sleep(100);
                 Bitmap source = new Bitmap(@"C:/ProgramData/screen.png");
+                //Thread.Sleep(100);
                 string strEncoded = CaptureAndroidElement.CaptureElement(source, rectBound);
                 element.Attributes.ImageCaptureEncoded = strEncoded;
             }

@@ -42,31 +42,8 @@ namespace TestingApplication
                 string name = p.StandardOutput.ReadToEnd();
                 name = name.Replace("\r", "");
                 name = name.Replace("\n", "");
-                // activity
-                p.StartInfo.Arguments = "-s" + ip + " shell \"dumpsys window windows | grep -E mCurrentFocus\"";
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.RedirectStandardError = true;
-                p.StartInfo.CreateNoWindow = true; // an man hinh
-                p.Start();
-                string output2 = p.StandardOutput.ReadToEnd();
-                output2 = output2.Replace("{", "");
-                output2 = output2.Replace("}", " ");
-                string[] arrayOutputSub = new string[10];
-                arrayOutputSub = output2.Split(' ');
-                string x = arrayOutputSub[4];
-                string[] arrOutputSub1 = x.Split('/');
-                string package = arrOutputSub1[0];
-                string activity = arrOutputSub1[1];
-                // version adb shell getprop ro.build.version.release
-                p.StartInfo.Arguments = "-s" + ip + " shell getprop ro.build.version.release";
-                p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.RedirectStandardError = true;
-                p.StartInfo.CreateNoWindow = true; // an man hinh
-                p.Start();
-                string version = p.StandardOutput.ReadToEnd();
-                version = version.Replace("\r", "");
-                version = version.Replace("\n", "");
-                AndroidDevice android = new AndroidDevice(ip, name, version, activity, package);
+                
+                AndroidDevice android = new AndroidDevice(ip, name, "", "", "");
                 Devices.Add(android);
                 i = i + 28;
 
@@ -85,12 +62,43 @@ namespace TestingApplication
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.FileName = "adb";
-            p.StartInfo.Arguments = "-s " + device.Ip + " shell uiautomator dump -d";
+            p.StartInfo.Arguments = "-s " + device.Ip + " shell uiautomator dump -a";
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.CreateNoWindow = true; //an man hinh
             p.Start();
             string command = p.StandardOutput.ReadToEnd();
+
+            // activity
+            p.StartInfo.Arguments = "-s" + device.Ip + " shell \"dumpsys window windows | grep -E mCurrentFocus\"";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true; // an man hinh
+            p.Start();
+            string output2 = p.StandardOutput.ReadToEnd();
+            output2 = output2.Replace("{", "");
+            output2 = output2.Replace("}", " ");
+            string[] arrayOutputSub = new string[10];
+            arrayOutputSub = output2.Split(' ');
+            string x = arrayOutputSub[4];
+            string[] arrOutputSub1 = x.Split('/');
+            string package = arrOutputSub1[0];
+            string activity = arrOutputSub1[1];
+            // version adb shell getprop ro.build.version.release
+            p.StartInfo.Arguments = "-s" + device.Ip + " shell getprop ro.build.version.release";
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true; // an man hinh
+            p.Start();
+            string version = p.StandardOutput.ReadToEnd();
+            version = version.Replace("\r", "");
+            version = version.Replace("\n", "");
+
+            device.Package = package;
+            device.Activity = activity;
+            device.Version = version;
+
+
             //p.Close();
             command = command.Replace("\r", " ");
             string path = "";
@@ -108,6 +116,7 @@ namespace TestingApplication
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
                 p.Start();
+
                 //string output = p.StandardOutput.ReadToEnd();
 
                 p.StartInfo.Arguments = "-s " + device.Ip + " shell screencap -p /sdcard/screen.png";

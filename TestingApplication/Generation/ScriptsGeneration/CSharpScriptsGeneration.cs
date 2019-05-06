@@ -145,29 +145,33 @@ namespace TestingApplication
         public string GenerateScriptAndroid(List<SpecScreen> specScreens, string folderOutPath, string nameFile)
         {
             string result = "";
-            List<string> nameClass = new List<string>();
-            nameClass.Add(nameFile);
+            List<string> listNameClass = new List<string>();
+            File.Move(folderOutPath + nameFile + ".java", folderOutPath + specScreens[0].Name + ".java");
+            nameFile = specScreens[0].Name;
+            listNameClass.Add(nameFile);
             for (int j = 0; j < specScreens.Count; j++)
             {
                 if (j < (specScreens.Count - 1))
                 {
-                    string newNameFile = nameFile + (j + 1);
+                    string newNameFile = specScreens[j + 1].Name;
                     File.Copy(folderOutPath + nameFile + ".java", folderOutPath + newNameFile + ".java", true);
-                    nameClass.Add(newNameFile);
+                    listNameClass.Add(newNameFile);
                 }
-                using (StreamWriter sw = new StreamWriter(folderOutPath + nameClass[j] + ".java", true, Encoding.UTF8))
+                using (StreamWriter sw = new StreamWriter(folderOutPath + listNameClass[j] + ".java", true, Encoding.UTF8))
                 {
-                    result = "public class " + nameClass[j] + " {" + NEW_LINE;
+                    result = TAB + "public class " + listNameClass[j] + " implements Runnable" + " {" + NEW_LINE;
+                    result += TAB + "String sheetName = \"" + listNameClass[j] +"\";" + NEW_LINE;
+                    result += TAB + "MyTestProjectDefinition element = new MyTestProjectDefinition();" + NEW_LINE;
 
                     // element
                     List<SpecNode> listSpecNodes = specScreens[j].ListSpecNodes;
+                    string methodRun = "";
                     for (int k = 0; k < specScreens[j].Scenarios.Count; k++)
                     {
-                        result += "@SuppressLint(\"Assert\")" + NEW_LINE;
-                        result += "@Test" + NEW_LINE;
-                        result += "public void testCal" + k + "() throws Exception {" + NEW_LINE;
-                        result += "MyTestProjectDefinition element = new MyTestProjectDefinition();" + NEW_LINE;
-                        result += "element.connectDevice();" + NEW_LINE;
+                        result += TAB + "@SuppressLint(\"Assert\")" + NEW_LINE;
+                        result += TAB + "@Test" + NEW_LINE;
+                        result += TAB + "public void testCal" + (k+1) + "() throws Exception {" + NEW_LINE;
+                        result += TAB + TAB + "element.connectDevice();" + NEW_LINE;
                         SpecScenario scenario = specScreens[j].Scenarios[k] as SpecScenario;
                         
                         List<string> listActionExp = scenario.UserActionsInString;
@@ -175,34 +179,83 @@ namespace TestingApplication
                         for (int i = 0; i < listSpecNodes.Count; i++)
                         {
                             result += GenScriptCode(listColor[i], listSpecNodes[i], listActionExp[i]);
-                            //result += "element." + listSpecNodes[i].UIElement.Attributes.Name + "." + listActionExp[i] + "();" + NEW_LINE;
                         }
                         result += NEW_LINE;
-                        result += "element.closeConnect();" + NEW_LINE + "}";
-
-
+                        result += TAB + TAB + "element.closeDevice();" + NEW_LINE + TAB + "}" + NEW_LINE;
+                        methodRun += TAB + TAB + TAB + "testCal" + (k + 1) + "();" + NEW_LINE;
                     }
-                    result += NEW_LINE + "}";
+                    // run method
+                    result += TAB + "@Override" + NEW_LINE + TAB + "public void run() {" + NEW_LINE;
+                    result += TAB + TAB + "try {" + NEW_LINE;
+                    result += TAB + TAB + TAB + "GeneratingTestingReport generatingTestingReport = new GeneratingTestingReport();" + NEW_LINE;
+                    result += TAB + TAB + TAB + "generatingTestingReport.scenarioInfoEmpty();" + NEW_LINE;
+                    result += methodRun;
+                    result += TAB + TAB + TAB + "generatingTestingReport.writeReport(sheetName, element.excelReportPath);" + NEW_LINE;
+                    result += TAB + TAB + "} catch (Exception e) {" + NEW_LINE + TAB + TAB + TAB + "e.printStackTrace();" + NEW_LINE;
+                    result += TAB + TAB + "}";
+                    result += NEW_LINE + TAB + "}" + NEW_LINE + "}";
                     sw.WriteLine(result);
 
                 }
 
 
             }
-            //result += "element.closeConnect();" + NEW_LINE + "}" + NEW_LINE + "}";
+            GenMainClassCode(folderOutPath, listNameClass);
             return result;
+        }
+        // gen main class
+        public void GenMainClassCode(string folderOutPath, List<string> listNameClass)
+        {
+            folderOutPath = folderOutPath + "Main.java";
+            string result = "";
+            using (StreamWriter sw = new StreamWriter(folderOutPath, true, Encoding.UTF8))
+            {
+                foreach (string name in listNameClass)
+                {
+                    result += TAB + TAB + "new " + name + "().run();" + NEW_LINE;
+                }
+                result += TAB + TAB + "generatingTestingReport.openFile(excelReportPath);" + NEW_LINE;
+                result += TAB + "}" + NEW_LINE + "}";
+                sw.WriteLine(result);
+            }
         }
         public string GenScriptCode(Color color, SpecNode specNode, string actionExp)
         {
             string result="";
-            if (color.Equals(AbstractSpecUserAction.PROCEDURES_COLOR))
+            string TAB3 = TAB + TAB;
+            if (!actionExp.Equals("N/A"))
             {
-                result += "element." + specNode.UIElement.Attributes.Name + "." + actionExp + "();" + NEW_LINE;
+                string elementName = specNode.UIElement.Attributes.Name.Replace(" ", "_");
+                if (color.Equals(AbstractSpecUserAction.PROCEDURES_COLOR))
+                {
+                    result += TAB3 + "//[Proccedure] " + elementName + ": " + actionExp + NEW_LINE;
+                    result += TAB3 + "element." + elementName + "." + actionExp + "();" + NEW_LINE;
+                }
+                else if (color.Equals(AbstractSpecUserAction.PRE_CONDITION_COLOR))
+                {
+                    result += TAB3 + "//[Pre-condition] " + specNode.UIElement.Attributes.Name + ": " + actionExp + NEW_LINE;
+                    result += TAB3 + "element." + elementName + ".EditText(" + actionExp.Replace('\'', '\"') + ");" + NEW_LINE;
+                }
+                else if (color.Equals(AbstractSpecUserAction.ENVIRONMENT_COLOR))
+                {
+                    result += TAB3 + "//[Environment] " + elementName + ": " + actionExp + NEW_LINE;
+                    result += TAB3 + "element." + elementName + "." + actionExp + "();" + NEW_LINE;
+                }
+                else if (color.Equals(AbstractSpecUserAction.VALIDATION_COLOR))
+                {
+                    result += TAB3 + "//[Validation] " + elementName + ": " + actionExp + NEW_LINE;
+                    if (!actionExp.Contains("\'"))
+                    {
+                        result += TAB3 + "Validate." + actionExp + "(element." + elementName + ");" + NEW_LINE;
+                    }
+                    else
+                    {
+                        result += TAB3 + "Validate.textEquals(element." + elementName + ", " + actionExp.Replace("\'", "\"") + ");" + NEW_LINE;
+                    }
+
+                }
             }
-            else if (color.Equals(AbstractSpecUserAction.PRE_CONDITION_COLOR))
-            {
-                result += "element." + specNode.UIElement.Attributes.Name + ".SendKey(" + actionExp.Replace('\'', '\"') + ");" + NEW_LINE;
-            }
+            
             return result;
         }
 

@@ -20,6 +20,7 @@ namespace TestingApplication
     {
         public static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public const string NEW_LINE = "\r\n";
+        public const string TAB = "\t";
         public const string REPLACE_NAMESPACE = "#replace_namespace";
         public const string REPLACE_CLASS_NAME = "#replace_classname";
         public const string CLASS_TEMPLATE =
@@ -78,9 +79,9 @@ namespace TestingApplication
         }
 
         //Test Android
-        public string ElementDefineTest(IElement rootElement, AndroidDevice androidDevice)
+        public string ElementDefineTest(IElement rootElement, AndroidDevice androidDevice, string folderOutPath)
         {
-            string replace = DeviceAndroidDefine(androidDevice) + NEW_LINE;
+            string replace = NEW_LINE + DeviceAndroidDefine(androidDevice) + NEW_LINE + NEW_LINE;
             replace += GenParentElementClass2Test(rootElement, "") + NEW_LINE + "}";
             return replace;
         }
@@ -127,9 +128,9 @@ namespace TestingApplication
         private string ContainElementDefineTest(ArgumentInitElement arg, List<string> childrenVars,
                 string className, string classNameBase, string childrenContent)
         {
-            string definitionElements = "IElement " + arg.VariableName + " = new ElementBase(new ElementAttributes(\""
-                + arg.Id + "\"));" + NEW_LINE;
-            
+            string definitionElements = TAB + "IElement " + arg.VariableName.Replace(" ", "_") + " = new ElementBase(new ElementAttributes(\""
+                + arg.VariableName.Replace(" ", "_") + "\", \"" + arg.Id + "\"));" + NEW_LINE;
+
             definitionElements += childrenContent;
 
             return definitionElements;
@@ -139,8 +140,8 @@ namespace TestingApplication
         {
             string childClassName = arg.ClassName;
             string childVariableName = "" + arg.VariableName;
-            string elementDefine = "IElement " + " " + childVariableName + " = new ElementBase(new ElementAttributes( \""
-                    + arg.Id + "\"));" + NEW_LINE;
+            string elementDefine = TAB + "IElement " + " " + childVariableName.Replace(" ", "_") + " = new ElementBase(new ElementAttributes( \""
+                    + childVariableName.Replace(" ", "_") + "\", \"" + arg.Id + "\"));" + NEW_LINE;
             return elementDefine;
         }
             public string GenParentElementClass2(IElement element, string childrenContent)
@@ -269,7 +270,7 @@ namespace TestingApplication
         // Generate code device
         public string DeviceAndroidDefine(AndroidDevice androidDevice)
         {
-            string deviceString = "androidDevices = new AndroidDevices(\"";
+            string deviceString = TAB + "AndroidDevices androidDevices = new AndroidDevices(\"";
             deviceString += androidDevice.Ip + "\",\"";
             deviceString += androidDevice.Version + ".0\",\"";
             deviceString += androidDevice.Activity + "\",\"";

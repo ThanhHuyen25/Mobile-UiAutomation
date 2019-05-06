@@ -18,7 +18,7 @@ namespace TestingApplication
 
         public const string DEFAULT_CS_OUTPUT_FILE = @"..\..\..\ProjectGenTemplate\ElementsDefinition.cs";
         public const string DEFAULT_CLASS_NAME = "ElementsDefinition";
-
+        
         public const string DEFINITION = "Definition";
         public const string REPO = "Repo.xml";
         public const string IMAGE_CAPTURE = "ImageCapture.xml";
@@ -85,12 +85,14 @@ namespace TestingApplication
         private bool GenerateElement(List<IElement> listRootElements, string folderOutPath, string projectName, AndroidDevice androidDevice, MyLog myLog)
         {
             string result1 = "";
+            result1 += "\t" + "String excelReportPath = \"" + folderOutPath + "\\TestingReport\\TestingReport.xls\";";
+            result1 = result1.Replace("\\", "\\\\");
             folderOutPath = folderOutPath + "\\" + projectName + "\\app\\src\\main\\java\\com\\example\\catty\\appiumtest\\MyTestProjectDefinition.java";
             using (StreamWriter sw = new StreamWriter(folderOutPath, true, Encoding.UTF8))
             {
                 foreach (IElement rootElement in RuntimeInstance.listRootElement)
                 {
-                    result1 = new ElementCSharpCodeGeneration().ElementDefineTest(rootElement, androidDevice);
+                    result1 += new ElementCSharpCodeGeneration().ElementDefineTest(rootElement, androidDevice, folderOutPath);
                     sw.WriteLine(result1);
                 }
             }
@@ -102,13 +104,9 @@ namespace TestingApplication
             string result = "";
             folderOutPath += "\\" + projectName + "\\app\\src\\main\\java\\com\\example\\catty\\appiumtest\\";
             string nameFile = "TestAction";
-            //using (StreamWriter sw = new StreamWriter(folderOutPath, true))
-            //{
-                CSharpScriptsGeneration cSharpScripts = new CSharpScriptsGeneration();
-                result = cSharpScripts.GenerateScriptAndroid(specScreens, folderOutPath, nameFile);
-               // sw.WriteLine(result);
-
-            //}
+            CSharpScriptsGeneration cSharpScripts = new CSharpScriptsGeneration();
+            result = cSharpScripts.GenerateScriptAndroid(specScreens, folderOutPath, nameFile);
+            
             return true;
         }
         
