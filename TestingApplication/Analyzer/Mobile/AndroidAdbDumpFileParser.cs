@@ -139,6 +139,14 @@ namespace TestingApplication
             {
                 re = new ListViewAndroidElement();
             }
+            else if (re.Attributes.Name.StartsWith("Switch"))
+            {
+                re = new ListViewAndroidElement();
+            }
+            else if (re.Attributes.Name.StartsWith("CheckBox"))
+            {
+                re = new ListViewAndroidElement();
+            }
         }
         //
         // get element.name
@@ -147,7 +155,7 @@ namespace TestingApplication
         private void getElementName(XmlNode node, IElement element)
         {
             string tmp;
-            tmp = element.Attributes.ContentDesc;
+            tmp = element.Attributes.ContentDesc + element.Attributes.Text;
             if (tmp == "")
             {
                 string str = element.Attributes.ResourceId;
@@ -161,7 +169,7 @@ namespace TestingApplication
                     } 
                     else
                     {
-                        tmp = str;
+                        //tmp = str;
                     }
                 }
                 else
@@ -241,6 +249,14 @@ namespace TestingApplication
             else if (node.Attributes["class"].Value.EndsWith("QuickContactBadge"))
             {
                 element.Attributes.Name = "QuickContactBadge " + tmp;
+            }
+            else if (node.Attributes["class"].Value.EndsWith("Switch"))
+            {
+                element.Attributes.Name = "Switch " + tmp;
+            }
+            else if (node.Attributes["class"].Value.EndsWith("CheckBox"))
+            {
+                element.Attributes.Name = "CheckBox " + tmp;
             }
         }
 

@@ -74,24 +74,24 @@ namespace TestingApplication
 
         public string ElementDefine(IElement rootElement)
         {
-            string replace = GenParentElementClass2(rootElement, "");
+            string replace = GenParentElementClassAndroid(rootElement, "");
             return replace;
         }
 
         //Test Android
-        public string ElementDefineTest(IElement rootElement, AndroidDevice androidDevice, string folderOutPath)
+        public string ElementDefineAndroid(IElement rootElement, AndroidDevice androidDevice, string folderOutPath)
         {
             string replace = NEW_LINE + DeviceAndroidDefine(androidDevice) + NEW_LINE + NEW_LINE;
-            replace += GenParentElementClass2Test(rootElement, "") + NEW_LINE + "}";
+            replace += GenParentElementClassTestAndroid(rootElement, "") + NEW_LINE + "}";
             return replace;
         }
         //Test
-        public string GenParentElementClass2Test(IElement element, string childrenContent)
+        public string GenParentElementClassTestAndroid(IElement element, string childrenContent)
         {
             //item-element
             if (element.Children == null || element.Children.Count <= 0)
             {
-                return ItemElementDefineTest(new ArgumentInitElement(
+                return ItemElementDefineAndroid(new ArgumentInitElement(
                             element.Attributes.Xpath,
                             element.GetType().Name.Replace("GUI_Testing_Automation", ""),
                             FormatName(element.Attributes.Name),
@@ -107,11 +107,11 @@ namespace TestingApplication
                 List<string> childrenVars = new List<string>();
                 foreach (IElement child in element.Children)
                 {
-                    childrenScripts += GenParentElementClass2Test(child, childrenContent);
+                    childrenScripts += GenParentElementClassTestAndroid(child, childrenContent);
                     
                     childrenVars.Add("" + FormatName(child.Attributes.Name));
                 }
-                string elementScripts = ContainElementDefineTest(
+                string elementScripts = ContainElementDefineAndroid(
                     new ArgumentInitElement(
                         element.Attributes.Xpath,
                         FormatName(element.Attributes.Name) + "_Class",
@@ -125,7 +125,7 @@ namespace TestingApplication
             }
         }
         // Android
-        private string ContainElementDefineTest(ArgumentInitElement arg, List<string> childrenVars,
+        private string ContainElementDefineAndroid(ArgumentInitElement arg, List<string> childrenVars,
                 string className, string classNameBase, string childrenContent)
         {
             string definitionElements = TAB + "IElement " + arg.VariableName.Replace(" ", "_") + " = new ElementBase(new ElementAttributes(\""
@@ -136,7 +136,7 @@ namespace TestingApplication
             return definitionElements;
         }
         // Android
-        private string ItemElementDefineTest(ArgumentInitElement arg)
+        private string ItemElementDefineAndroid(ArgumentInitElement arg)
         {
             string childClassName = arg.ClassName;
             string childVariableName = "" + arg.VariableName;
@@ -144,7 +144,8 @@ namespace TestingApplication
                     + childVariableName.Replace(" ", "_") + "\", \"" + arg.Id + "\"));" + NEW_LINE;
             return elementDefine;
         }
-            public string GenParentElementClass2(IElement element, string childrenContent)
+
+        public string GenParentElementClassAndroid(IElement element, string childrenContent)
         {
             //item-element
             if (element.Children == null || element.Children.Count <= 0)
@@ -165,7 +166,7 @@ namespace TestingApplication
                 List<string> childrenVars = new List<string>();
                 foreach (IElement child in element.Children)
                 {
-                    childrenScripts += GenParentElementClass2(child, childrenContent);
+                    childrenScripts += GenParentElementClassAndroid(child, childrenContent);
                     //if children is container, so must add statement declare
                     //if (child.Children != null && child.Children.Count > 0)
                     //{

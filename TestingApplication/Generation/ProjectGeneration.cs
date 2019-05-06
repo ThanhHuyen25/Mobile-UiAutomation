@@ -92,7 +92,7 @@ namespace TestingApplication
             {
                 foreach (IElement rootElement in RuntimeInstance.listRootElement)
                 {
-                    result1 += new ElementCSharpCodeGeneration().ElementDefineTest(rootElement, androidDevice, folderOutPath);
+                    result1 += new ElementCSharpCodeGeneration().ElementDefineAndroid(rootElement, androidDevice, folderOutPath);
                     sw.WriteLine(result1);
                 }
             }
